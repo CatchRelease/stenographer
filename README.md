@@ -1,0 +1,2 @@
+# stenographer
+Better Changelog Management
