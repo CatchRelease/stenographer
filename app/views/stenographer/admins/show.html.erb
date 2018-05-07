@@ -26,7 +26,7 @@
   <div class="change-item">
     <label class="change-label">Type</label>
     <div class="change-value">
-      <%= @change.change_type.titleize %>
+      <%= @change.change_type.present? ? @change.change_type.titleize : 'General' %>
     </div>
   </div>
 
