@@ -30,15 +30,9 @@ Or install it yourself as:
 $ gem install stenographer
 ```
 
-Run the migrations:
+Add the configuration and migrations:
 ```bash
-$ rake stenographer:install:migrations
-$ rake db:migrate
-```
-
-Mount the engine:
-```ruby
-  mount Stenographer::Engine, at: '/stenographer'
+$ rails g stenographer:install
 ```
 
 ## Configuration
