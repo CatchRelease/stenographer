@@ -6,6 +6,21 @@ module Stenographer
   class AdminsController < ApplicationController
     before_action :assign_change, only: %i[show edit update destroy]
 
+    def new
+      @change = Change.new
+    end
+
+    def create
+      @change = Change.new(change_params)
+
+      if @change.save
+        redirect_to admin_path(@change), notice: 'Change Created'
+      else
+        flash.now[:alert] = @change.errors.full_messages.to_sentence
+        render :new
+      end
+    end
+
     def index
       page = params[:page] || 1
       @changes = Change.order(created_at: :desc).paginate(page: page, per_page: 25)

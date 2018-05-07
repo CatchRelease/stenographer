@@ -7,6 +7,62 @@ describe Stenographer::AdminsController, type: :controller do
   let!(:newer_change) { create(:change, created_at: 1.week.ago) }
   let!(:hidden_change) { create(:change, visible: false) }
 
+  describe '#new' do
+    def new_action(opts = {})
+      get :new, params: { }.merge(opts)
+    end
+
+    describe 'individual behaviors' do
+      before :each do
+        new_action
+      end
+
+      it 'assigns @change' do
+        expect(assigns(:change)).not_to be_nil
+      end
+
+      it 'renders the new page' do
+        expect(response).to render_template(:new)
+      end
+    end
+  end
+
+  describe '#create' do
+    def create_action(opts = {})
+      patch :create, params: { change: { message: 'snakes', tracker_ids: 'lego' } }.merge(opts)
+    end
+
+    describe 'individual behaviors' do
+      describe 'success' do
+        it 'creates the record' do
+          expect do
+            create_action
+          end.to change(Stenographer::Change, :count).by(1)
+        end
+
+        it 'redirects to the admin path' do
+          create_action
+
+          expect(response).to redirect_to(admin_path(Stenographer::Change.last))
+        end
+      end
+
+      describe 'failure' do
+        it 'does not create the record' do
+          expect do
+            create_action(change: { message: nil })
+          end.not_to change(Stenographer::Change, :count)
+        end
+
+        it 'redirects to the admin path' do
+          create_action(change: { message: nil })
+
+          expect(response).to render_template(:new)
+        end
+      end
+    end
+  end
+
   describe '#index' do
     def index_action(opts = {})
       get :index, params: {}.merge(opts)
@@ -78,7 +134,7 @@ describe Stenographer::AdminsController, type: :controller do
 
   describe '#update' do
     def update_action(opts = {})
-      get :update, params: { id: first_change.id, change: { tracker_ids: 'hummingbird' } }.merge(opts)
+      patch :update, params: { id: first_change.id, change: { tracker_ids: 'hummingbird' } }.merge(opts)
     end
 
     describe 'individual behaviors' do

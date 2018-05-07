@@ -3,6 +3,10 @@
     Changes Admin
   </header>
 
+  <div class="change-actions">
+    <%= link_to 'New', new_admin_path %>
+  </div>
+
   <div class="changes-pagination">
     <%= will_paginate @changes %>
   </div>
