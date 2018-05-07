@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Stenographer</title>
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
+
+  <%= stylesheet_link_tag 'stenographer/application', media: 'all' %>
+  <%= stylesheet_link_tag  'https://fonts.googleapis.com/css?family=Work+Sans:300,400,700', media: 'all' %>
+</head>
+<body>
+  <%= render partial: 'stenographer/shared/header' %>
+  <% flash.each do |name, msg| -%>
+    <%= content_tag :div, msg, class: "flash flash-#{name}" %>
+  <% end -%>
+
+  <%= yield %>
+
+  <%= javascript_include_tag 'stenographer/application' %>
+</body>
+</html>

@@ -1,0 +1,52 @@
+/*
+  Place all the styles related to the matching controller here.
+  They will automatically be included in application.css.
+*/
+
+ul.changes {}
+
+li.change {
+    margin: 5px 0;
+    font-weight: 300;
+}
+
+label.change-label {
+    font-size: 14px;
+}
+
+.change-type-group {
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.change-link {
+    font-size: 12px;
+}
+
+.change-item {
+    margin: 20px 0;
+}
+
+.change-value {
+    margin: 10px;
+}
+
+.change-actions {
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.change-changeset {
+    margin-bottom: 40px;
+}
+
+.change-date-group {
+    border-bottom: 1px solid #FF851B;
+    margin-bottom: 10px;
+    padding-bottom: 5px;
+}
+
+.changes-pagination {
+    text-align: center;
+    margin: 40px 0;
+}

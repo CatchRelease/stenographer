@@ -1,0 +1,43 @@
+<section class="body-wrapper">
+  <header class="sub-header">
+    Changes Admin
+  </header>
+
+  <div class="changes-pagination">
+    <%= will_paginate @changes %>
+  </div>
+
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Date</th>
+        <th>Message</th>
+        <th>Visible</th>
+        <th>Type</th>
+        <th>Environment</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @changes.each do |change| %>
+        <tr>
+          <td><%= link_to(change.id, admin_path(change.id)) %></td>
+          <td><%= change.created_at.strftime('%Y/%m/%d') %></td>
+          <td title="<%= change.message %>"><%= change.message.truncate(25) %></td>
+          <td><%= change.visible.to_s %></td>
+          <td><%= change.change_type.titleize %></td>
+          <td><%= change.environment %></td>
+          <td>
+            <%= button_to 'View', admin_path(change.id), :method => :get %>
+            <%= button_to 'Edit', edit_admin_path(change.id), :method => :get %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+  <div class="changes-pagination">
+    <%= will_paginate @changes %>
+  </div>
+</section>

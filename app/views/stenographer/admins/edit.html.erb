@@ -1,0 +1,52 @@
+<section class="body-wrapper">
+  <header class="sub-header">
+    Admin Edit Change #<%= @change.id %>
+  </header>
+
+  <div class="change-actions">
+    <%= link_to 'Show', admin_path(@change.id) %>
+    |
+    <%= link_to 'Delete', admin_path(@change), :method => :delete, :data => { :confirm => 'Are you sure you want to delete this Change?' } %>
+  </div>
+
+
+  <%= form_for @change, url: admin_path(@change), method: :patch do |f| %>
+    <%= field_set_tag do %>
+      <%= f.label :created_at, 'Date' %>
+      <%= f.date_select(:created_at, :order => [:month, :day, :year]) %>
+    <% end %>
+
+    <%= field_set_tag do %>
+      <%= f.label :message %>
+      <%= f.text_area :message, rows: 5 %>
+    <% end %>
+
+    <%= field_set_tag do %>
+      <%= f.label :visible %>
+      <%= f.check_box :visible %>
+    <% end %>
+
+    <%= field_set_tag do %>
+      <%= f.label :change_type %>
+      <%= f.select :change_type, Stenographer::Change::VALID_CHANGE_TYPES, {}, class: 'full-width' %>
+    <% end %>
+
+    <%= field_set_tag do %>
+      <%= f.label :environment %>
+      <%= f.text_field :environment %>
+    <% end %>
+
+    <%= field_set_tag do %>
+      <%= f.label :tracker_ids %>
+      <%= f.text_field :tracker_ids %>
+    <% end %>
+
+    <div class="change-actions">
+      <%= f.submit %>
+    </div>
+  <% end %>
+
+  <div class="change-actions">
+    <%= link_to('Back', admin_path(@change.id)) %>
+  </div>
+</section>

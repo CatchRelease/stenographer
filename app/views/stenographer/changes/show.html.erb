@@ -1,0 +1,44 @@
+<section class="body-wrapper">
+  <header class="sub-header">
+    Change #<%= @change.id %>
+  </header>
+
+  <div class="change-item">
+    <label class="change-label">Date</label>
+    <div class="change-value">
+      <%= @change.created_at.strftime('%m/%d/%Y') %>
+    </div>
+  </div>
+
+  <div class="change-item">
+    <label class="change-label">Message</label>
+    <div class="change-value">
+      <%= @change.message %>
+    </div>
+  </div>
+
+  <div class="change-item">
+    <label class="change-label">Type</label>
+    <div class="change-value">
+      <%= @change.change_type.titleize %>
+    </div>
+  </div>
+
+  <div class="change-item">
+    <label class="change-label">Environment</label>
+    <div class="change-value">
+      <%= @change.environment %>
+    </div>
+  </div>
+
+  <div class="change-item">
+    <label class="change-label">Tracker IDs</label>
+    <div class="change-value">
+      <%= @change.tracker_ids.present? ? @change.tracker_ids : '-' %>
+    </div>
+  </div>
+
+  <div class="change-actions">
+    <%= link_to('Back', changes_path) %>
+  </div>
+</section>

@@ -1,0 +1,161 @@
+# This file is the "ignore file" for the 'rubocop' gem.
+# To run 'rubocop' with this config file, run:
+# `rubocop -c rubocop.yml`
+
+# TODO: Temporarily disable this cop, because it spews false positives.
+# https://github.com/bbatsov/rubocop/issues/4886
+Style/CommentedKeyword:
+  Enabled: false
+
+Rails:
+  Enabled: true
+
+# Ignore documentation being at line one of every file
+Documentation:
+  Enabled: false
+
+# Ignore the line length limit
+LineLength:
+  Enabled: false
+
+Security:
+  Enabled: false
+
+Lint/NonLocalExitFromIterator:
+  Enabled: false
+
+Lint/HandleExceptions:
+  Enabled: false
+
+SingleLineBlockParams:
+  Enabled: false
+
+# Ignore the method length limit
+MethodLength:
+  Enabled: false
+
+ModuleLength:
+  Enabled: false
+
+NumericLiterals:
+  Enabled: false
+
+OutputSafety:
+  Enabled: false
+
+SpaceInsideHashLiteralBraces:
+  Enabled: false
+
+BracesAroundHashParameters:
+  Enabled: false
+
+CyclomaticComplexity:
+  Enabled: false
+
+AbcSize:
+  Enabled: false
+
+Lambda:
+  Enabled: false
+
+ClassLength:
+  Enabled: false
+
+AlignParameters:
+  Enabled: false
+
+ClassAndModuleChildren:
+  Enabled: false
+
+UnusedMethodArgument:
+  Enabled: false
+
+UnusedBlockArgument:
+  Enabled: false
+
+RescueException:
+  Enabled: false
+
+Next:
+  Enabled: false
+
+GuardClause:
+  Enabled: false
+
+PerceivedComplexity:
+  Enabled: false
+
+SymbolProc:
+  Enabled: false
+
+For:
+  Enabled: false
+
+LiteralInInterpolation:
+  Enabled: false
+
+Style/IfUnlessModifier:
+  Enabled: false
+
+Style/SafeNavigation:
+  Enabled: false
+
+SpaceInsideStringInterpolation:
+  Enabled: false
+
+ParallelAssignment:
+  Enabled: false
+
+Security/JSONLoad:
+  Enabled: false
+
+Layout/SpaceInLambdaLiteral:
+  EnforcedStyle: require_space
+
+Metrics/BlockLength:
+  Enabled: false
+
+Naming/MemoizedInstanceVariableName:
+  Enabled: false
+
+Rails/SkipsModelValidations:
+  Enabled: false
+
+Rails/FilePath:
+  Enabled: false
+
+Rails/Delegate:
+  Enabled: false
+
+Rails/UnknownEnv:
+  Environments:
+    - development
+    - test
+    - staging
+    - production
+
+Rails/LexicallyScopedActionFilter:
+  Enabled: false
+
+Performance/RedundantMatch:
+  Enabled: false
+
+Performance/RedundantMerge:
+  Enabled: false
+
+Performance/RegexpMatch:
+  Enabled: false
+
+Lint/AmbiguousBlockAssociation:
+  Enabled: false
+
+AllCops:
+  TargetRubyVersion: 2.4.2
+
+  Exclude:
+    - bin/rails
+    - db/migrate/*
+    - vendor/**/*
+    - test/**/*
+    - spec/dummy/**/*
+    - lib/generators/stenographer/install_generator.rb
