@@ -3,36 +3,40 @@
     Product Updates
   </header>
 
-  <% date_groups = @changes.group_by_week { |change| change.created_at } %>
+  <% if @changes.present? %>
+    <% date_groups = @changes.group_by_week { |change| change.created_at } %>
 
-  <% date_groups.sort { |group1, group2| group2[0] <=> group1[0] }.each do |date_group| %>
-    <article class="change-changeset">
-      <% date_group_date = date_group[0] %>
-      <% date_group_results = date_group[1] %>
+    <% date_groups.sort { |group1, group2| group2[0] <=> group1[0] }.each do |date_group| %>
+      <article class="change-changeset">
+        <% date_group_date = date_group[0] %>
+        <% date_group_results = date_group[1] %>
 
-      <div class="change-date-group">Week of <%= date_group_date %></div>
+        <div class="change-date-group">Week of <%= date_group_date %></div>
 
-      <% change_type_groups = date_group_results.group_by(&:change_type) %>
+        <% change_type_groups = date_group_results.group_by(&:change_type) %>
 
-      <% change_type_groups.each do |group| %>
-        <% group_name = group[0].titleize %>
-        <% group_results = group[1] %>
+        <% change_type_groups.each do |group| %>
+          <% group_name = group[0].titleize %>
+          <% group_results = group[1] %>
 
-        <div class="change-type-group"><%= group_name || 'General'%></div>
+          <div class="change-type-group"><%= group_name || 'General'%></div>
 
-        <ul class="changes">
-          <% group_results.each do |change| %>
-            <li class="change">
-              <%= change.message %>
-              <%= link_to('(more)', change_path(change.id), class: 'change-link') %>
-            </li>
-          <% end %>
-        </ul>
-      <% end %>
-    </article>
+          <ul class="changes">
+            <% group_results.each do |change| %>
+              <li class="change">
+                <%= change.message %>
+                <%= link_to('(more)', change_path(change.id), class: 'change-link') %>
+              </li>
+            <% end %>
+          </ul>
+        <% end %>
+      </article>
+    <% end %>
+
+    <div class="changes-pagination">
+      <%= will_paginate @changes %>
+    </div>
+  <% else %>
+    <div class="changes-none">Nothing to see here yet, time to get to changing.</div>
   <% end %>
-
-  <div class="changes-pagination">
-    <%= will_paginate @changes %>
-  </div>
 </section>
