@@ -16,10 +16,10 @@
         <% change_type_groups = date_group_results.group_by(&:change_type) %>
 
         <% change_type_groups.each do |group| %>
-          <% group_name = group[0].titleize %>
+          <% group_name = group[0].present? ? group[0].titleize : 'General' %>
           <% group_results = group[1] %>
 
-          <div class="change-type-group"><%= group_name || 'General'%></div>
+          <div class="change-type-group"><%= group_name %></div>
 
           <ul class="changes">
             <% group_results.each do |change| %>

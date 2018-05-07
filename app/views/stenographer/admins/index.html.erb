@@ -26,7 +26,7 @@
           <td><%= change.created_at.strftime('%Y/%m/%d') %></td>
           <td title="<%= change.message %>"><%= change.message.truncate(25) %></td>
           <td><%= change.visible.to_s %></td>
-          <td><%= change.change_type.titleize %></td>
+          <td><%= change.change_type.present? ? change.change_type.titleize : 'General'%></td>
           <td><%= change.environment %></td>
           <td>
             <%= button_to 'View', admin_path(change.id), :method => :get %>
