@@ -18,7 +18,7 @@
         <% group_name = group[0].titleize %>
         <% group_results = group[1] %>
 
-        <div class="change-type-group"><%= group_name %></div>
+        <div class="change-type-group"><%= group_name || 'General'%></div>
 
         <ul class="changes">
           <% group_results.each do |change| %>

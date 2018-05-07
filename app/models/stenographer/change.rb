@@ -5,6 +5,6 @@ module Stenographer
     VALID_CHANGE_TYPES = Stenographer.change_types
 
     validates :message, presence: true
-    validates :change_type, inclusion: { in: VALID_CHANGE_TYPES }
+    validates :change_type, inclusion: { in: VALID_CHANGE_TYPES }, allow_nil: true
   end
 end
