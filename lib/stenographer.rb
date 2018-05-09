@@ -1,10 +1,11 @@
 # frozen_string_literal: true
 
+require 'will_paginate'
+require 'groupdate'
+
 require 'stenographer/engine'
 require 'stenographer/routing_constraints/viewer_only'
 require 'stenographer/routing_constraints/manager_only'
-
-# require './generators/stenography/install_generator'
 
 module Stenographer
   class << self
@@ -13,6 +14,8 @@ module Stenographer
     mattr_accessor :change_types
     mattr_accessor :viewer
     mattr_accessor :manager
+    mattr_accessor :per_page
+    mattr_accessor :default_environment
 
     self.app_name = 'Stenographer'
     self.app_icon = nil
@@ -21,6 +24,9 @@ module Stenographer
 
     self.viewer = true
     self.manager = true
+
+    self.per_page = 100
+    self.default_environment = 'production'
   end
 
   def self.configure(&block)

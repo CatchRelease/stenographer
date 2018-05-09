@@ -46,6 +46,15 @@ label.change-label {
     padding-bottom: 5px;
 }
 
+.changes-environments {
+    text-align: center;
+    margin-bottom: 60px;
+}
+
+.changes-environments label {
+    display: inline-block
+}
+
 .changes-pagination {
     text-align: center;
     margin: 40px 0;

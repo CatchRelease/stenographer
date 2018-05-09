@@ -12,6 +12,7 @@ module Stenographer
 
     def create
       @change = Change.new(change_params)
+      @change.environment = Rails.env.to_s
 
       if @change.save
         redirect_to admin_path(@change), notice: 'Change Created'
@@ -23,7 +24,7 @@ module Stenographer
 
     def index
       page = params[:page] || 1
-      @changes = Change.order(created_at: :desc).paginate(page: page, per_page: 25)
+      @changes = Change.order(created_at: :desc).paginate(page: page, per_page: Stenographer.per_page)
     end
 
     def show; end

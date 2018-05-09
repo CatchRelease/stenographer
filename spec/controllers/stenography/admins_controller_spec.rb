@@ -40,6 +40,12 @@ describe Stenographer::AdminsController, type: :controller do
           end.to change(Stenographer::Change, :count).by(1)
         end
 
+        it 'sets the environment to the Rails environment' do
+          create_action
+
+          expect(Stenographer::Change.last.environment).to eq(Rails.env.to_s)
+        end
+
         it 'redirects to the admin path' do
           create_action
 

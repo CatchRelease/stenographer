@@ -1,9 +1,17 @@
 <section class="body-wrapper">
   <header class="sub-header">
-    Product Updates
+    <%= "Product Updates - #{ params[:environment].present? ? params[:environment].capitalize : Stenographer.default_environment.capitalize }" %>
   </header>
 
   <% if @changes.present? %>
+    <div class="changes-environments">
+      <label>Environment:</label>
+      <% Stenographer::Change.environments.each do |environment| %>
+        <% environment_params = { environment: environment } %>
+        <%= link_to "#{environment.capitalize}", changes_path(environment_params), class: environment_link_class(environment) %>
+      <% end %>
+    </div>
+
     <% date_groups = @changes.group_by_week { |change| change.created_at } %>
 
     <% date_groups.sort { |group1, group2| group2[0] <=> group1[0] }.each do |date_group| %>
@@ -15,21 +23,26 @@
 
         <% change_type_groups = date_group_results.group_by(&:change_type) %>
 
-        <% change_type_groups.each do |group| %>
-          <% group_name = group[0].present? ? group[0].titleize : 'General' %>
-          <% group_results = group[1] %>
+        <% all_groups = [nil] + Stenographer.change_types %>
 
-          <div class="change-type-group"><%= group_name %></div>
+        <% all_groups.each do |group_type| %>
+          <% if change_type_groups[group_type].present? %>
+            <% group = change_type_groups[group_type] %>
+            <% group_name = group_type.nil? ? 'General' : group_type.titleize %>
 
-          <ul class="changes">
-            <% group_results.each do |change| %>
-              <li class="change">
-                <%= change.message %>
-                <%= link_to('(more)', change_path(change.id), class: 'change-link') %>
-              </li>
-            <% end %>
-          </ul>
+            <div class="change-type-group"><%= group_name %></div>
+
+            <ul class="changes">
+              <% group.each do |change| %>
+                <li class="change">
+                  <%= change.message %>
+                  <%= link_to('(more)', change_path(change.id), class: 'change-link') %>
+                </li>
+              <% end %>
+            </ul>
+          <% end %>
         <% end %>
+
       </article>
     <% end %>
 
