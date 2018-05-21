@@ -40,7 +40,13 @@
   <div class="change-item">
     <label class="change-label">Tracker IDs</label>
     <div class="change-value">
-      <%= @change.tracker_ids.present? ? @change.tracker_ids : '-' %>
+      <% if @change.tracker_ids.present? %>
+        <% @change.tracker_ids.split(',').each do |tracker_id| %>
+          <%= tracker_id %>
+        <% end %>
+      <% else %>
+        -
+      <% end %>
     </div>
   </div>
 
