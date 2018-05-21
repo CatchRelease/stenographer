@@ -38,6 +38,27 @@ $ rails g stenographer:install
 ## Configuration
 All configuration is available in the config/initializers/stenographer.rb
 
+## Developing
+#### Running the App
+Set up the database
+
+```ruby
+$ rake app:db:setup
+```
+
+Start the Rails server
+```ruby
+$ rails s
+```
+
+View the site
+[http://locahost:3000/stenographer](http://locahost:3000/stenographer)
+
+#### Testing
+```ruby
+$ rake spec
+```
+
 ## Contributing
 1. Fork the repo and create your branch.
 2. If you've added code that should be tested, add tests.
