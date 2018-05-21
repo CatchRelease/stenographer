@@ -16,5 +16,9 @@ module Stenographer
     def self.environments
       ['all'] + distinct(:environment).pluck(:environment)
     end
+
+    def to_markdown
+      Stenographer.markdown_renderer.render(message).html_safe
+    end
   end
 end

@@ -41,5 +41,13 @@ describe Stenographer::Change, type: :model do
         expect(Stenographer::Change.environments).to eq(%w[all alpha beta])
       end
     end
+
+    describe '#to_markdown' do
+      subject { create(:change, message: '# hello') }
+
+      it 'translates its message to markdown' do
+        expect(subject.to_markdown.strip).to eq('<h1>hello</h1>')
+      end
+    end
   end
 end

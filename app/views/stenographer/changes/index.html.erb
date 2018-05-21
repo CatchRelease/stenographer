@@ -35,7 +35,7 @@
             <ul class="changes">
               <% group.each do |change| %>
                 <li class="change">
-                  <%= change.message %>
+                  <%= change.to_markdown %>
                   <%= link_to('(more)', change_path(change.id), class: 'change-link') %>
                 </li>
               <% end %>

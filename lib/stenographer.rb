@@ -2,6 +2,7 @@
 
 require 'will_paginate'
 require 'groupdate'
+require 'redcarpet'
 
 require 'stenographer/engine'
 require 'stenographer/routing_constraints/viewer_only'
@@ -16,6 +17,7 @@ module Stenographer
     mattr_accessor :manager
     mattr_accessor :per_page
     mattr_accessor :default_environment
+    mattr_accessor :markdown_renderer
 
     self.app_name = 'Stenographer'
     self.app_icon = nil
@@ -27,6 +29,8 @@ module Stenographer
 
     self.per_page = 100
     self.default_environment = 'production'
+
+    self.markdown_renderer = Redcarpet::Markdown.new(Redcarpet::Render::HTML, autolink: true)
   end
 
   def self.configure(&block)

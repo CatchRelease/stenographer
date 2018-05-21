@@ -20,6 +20,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'groupdate', '>= 4.0.0'
   s.add_dependency 'rails', '~> 5.2.0'
   s.add_dependency 'will_paginate', '>= 3.1.0'
+  s.add_dependency 'redcarpet', '~> 3.4'
 
   s.add_development_dependency 'factory_bot_rails'
   s.add_development_dependency 'faker'
