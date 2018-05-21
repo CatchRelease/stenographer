@@ -10,6 +10,11 @@ li.change {
     font-weight: 300;
 }
 
+.change p {
+    display: inline-block;
+    margin: 2px;
+}
+
 label.change-label {
     font-size: 14px;
 }
