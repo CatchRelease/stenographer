@@ -29,7 +29,7 @@ describe Stenographer::AdminsController, type: :controller do
 
   describe '#create' do
     def create_action(opts = {})
-      patch :create, params: { change: { message: 'snakes', tracker_ids: 'lego' } }.merge(opts)
+      post :create, params: { change: { message: 'snakes', tracker_ids: 'lego' } }.merge(opts)
     end
 
     describe 'individual behaviors' do

@@ -1,0 +1,36 @@
+# https://github.com/mjackson/citrus/blob/master/doc/syntax.markdown
+
+grammar CommitMessageParser
+  rule commit_message
+    (anything commit_directive*) { captures(:commit_directive).map(&:value).flatten.uniq.sort }
+  end
+
+  rule commit_directive
+    ('[' space commit_fragment+ ']' anything) { captures(:commit_fragment).map(&:value).flatten }
+  end
+
+  rule commit_fragment
+    (finishes? story_id+ space) { captures(:story_id).map(&:value) }
+  end
+
+  rule finishes
+    # shortest versions go at the end (e.g. "finish" comes after the longer variants)
+    (`finishes` | `finished` | `finish` | `fixes` | `fixed` | `fix` | `completes` | `completed` | `complete`) space
+  end
+
+  rule story_id
+    ('#'? number space) { capture(:number).value }
+  end
+
+  rule number
+    [0-9]+ { to_s }
+  end
+
+  rule space
+    [ ,\t\n]*
+  end
+
+  rule anything
+    ([^\[] | '[' !(finishes | story_id))*
+  end
+end

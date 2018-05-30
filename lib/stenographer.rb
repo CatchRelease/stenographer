@@ -3,8 +3,11 @@
 require 'will_paginate'
 require 'groupdate'
 require 'redcarpet'
+require 'citrus'
 
 require 'stenographer/engine'
+require 'stenographer/parsers/base_parser'
+require 'stenographer/parsers/github_parser'
 require 'stenographer/routing_constraints/viewer_only'
 require 'stenographer/routing_constraints/manager_only'
 
@@ -18,6 +21,9 @@ module Stenographer
     mattr_accessor :per_page
     mattr_accessor :default_environment
     mattr_accessor :markdown_renderer
+    mattr_accessor :use_changelog
+    mattr_accessor :parser
+    mattr_accessor :tracked_branches
 
     self.app_name = 'Stenographer'
     self.app_icon = nil
@@ -31,6 +37,11 @@ module Stenographer
     self.default_environment = 'production'
 
     self.markdown_renderer = Redcarpet::Markdown.new(Redcarpet::Render::HTML, autolink: true)
+
+    self.use_changelog = true
+
+    self.parser = 'Stenographer::GithubParser'
+    self.tracked_branches = %w[master work]
   end
 
   def self.configure(&block)

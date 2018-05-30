@@ -3,6 +3,7 @@
 class CreateStenographerChanges < ActiveRecord::Migration[5.2]
   def change
     create_table :stenographer_changes do |t|
+      t.string :subject
       t.string :message, null: false
       t.boolean :visible, default: true, null: false
       t.string :change_type

@@ -44,4 +44,21 @@ Stenographer.configure do |config|
   #   User.select(:id, :manager).find_by(id: session[:user_id]).try(:manager?) if session.present?
   # }
   config.manager = true
+
+  # Determines if the changelog will look for messages that contain [changelog #{CHANGE_MESSAGE}] or not.
+  # If this is set to true, items without a changelog message will not be stored. This also affects the displayed message
+  # when false. If there is a changelog message, it will be shown, otherwise it will be the subject.
+  config.use_changelog = true
+
+  # Which parser to use for the incoming change events. Currently only supports Github Webhooks.
+  #
+  # Example:
+  # config.parser = 'Stenographer::GithubParser'
+  config.parser
+
+  # When the parser is set to Github, which branches to manage with the changelog.
+  #
+  # Example:
+  # config.tracked_branches = %w[master work]
+  config.tracked_branches = %w[master work]
 end

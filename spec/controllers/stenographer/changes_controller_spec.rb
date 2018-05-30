@@ -7,6 +7,37 @@ describe Stenographer::ChangesController, type: :controller do
   let!(:newer_change) { create(:change, created_at: 1.week.ago, environment: 'env2') }
   let!(:hidden_change) { create(:change, visible: false) }
 
+  describe '#create' do
+    let(:example_response) { File.read("#{Stenographer::Engine.root}/spec/fixtures/github_push_notification.json") }
+    let(:master_branch_response) { example_response.gsub('refs/heads/cheetos', 'refs/heads/master') }
+
+    def create_action(params = {})
+      post :create, params: { payload: master_branch_response }.merge(params)
+    end
+
+    describe 'individual behaviors' do
+      it 'responds successfully' do
+        create_action
+
+        expect(response).to be_successful
+      end
+
+      describe 'use_changelog false' do
+        before :each do
+          Stenographer.use_changelog = false
+        end
+
+        it 'creates Changes for all items' do
+          commits = JSON.parse(master_branch_response, symbolize_names: true)[:commits]
+
+          expect do
+            create_action
+          end.to change(Stenographer::Change, :count).by(commits.length)
+        end
+      end
+    end
+  end
+
   describe '#index' do
     def index_action(opts = {})
       get :index, params: {}.merge(opts)
