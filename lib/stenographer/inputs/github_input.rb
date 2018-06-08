@@ -14,6 +14,9 @@ module Stenographer
         changes = []
         notification = JSON.parse(params[:payload], symbolize_names: true)
         commits = notification[:commits]
+
+        return changes unless commits.present?
+
         branch = notification[:ref].split('/').last
 
         if tracked_branch?(branch)

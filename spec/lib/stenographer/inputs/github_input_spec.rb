@@ -13,6 +13,13 @@ describe Stenographer::Inputs::GithubInput do
     end
 
     describe 'individual behaviors' do
+      describe 'no commits' do
+        it 'returns an empty array' do
+          result = parse_action(payload: {}.to_json)
+          expect(result).to eq([])
+        end
+      end
+
       describe 'untracked branch' do
         it 'does not create a change configuration' do
           changes = parse_action(payload: other_branch_response)
