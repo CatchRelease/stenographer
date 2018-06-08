@@ -1,5 +1,5 @@
 <% dictionary.each_pair do |key, value| %>
-  <%- unless value.empty? %>
+  <%- if value.present? && !value.empty? %>
     <div class="field">
       <label class="label"><%= key %></label>
       <div><%= value %></div>
