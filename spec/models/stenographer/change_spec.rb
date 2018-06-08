@@ -44,7 +44,7 @@ describe Stenographer::Change, type: :model do
     describe '.environments' do
       it 'returns all the environments available' do
         create(:change, environment: 'alpha')
-        create(:change, environment: 'alpha')
+        create(:change, environment: 'Alpha')
         create(:change, environment: 'beta')
 
         expect(Stenographer::Change.environments).to eq(%w[all alpha beta])
