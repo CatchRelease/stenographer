@@ -1,0 +1,55 @@
+<section class="section">
+  <div class="container">
+    <h1 class="title">
+      Authentications Admin
+    </h1>
+
+    <div class="box">
+      <label class="label">OAuth Connections:</label>
+      <%- if @slack_authentication.present? %>
+        <%= link_to admin_authentication_path(@slack_authentication), :method => :delete, :data => { :confirm => 'Are you sure you want to disconnect from Slack?' } do %>
+          <span class="icon has-text-danger">
+            <i class="fab fa-slack-hash fa-lg"></i>
+          </span> Disconnect from Slack
+        <% end %>
+      <% else %>
+        <%= link_to authentication_path('slack') do %>
+          <span class="icon has-text-success">
+            <i class="fab fa-slack-hash fa-lg"></i>
+          </span>Connect to Slack
+        <% end %>
+      <% end %>
+    </div>
+
+    <table class="table is-fullwidth is-striped">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Date</th>
+          <th>Provider</th>
+          <th>UID</th>
+          <th>Credentials</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+      <% @authentications.each do |authentication| %>
+        <tr>
+          <td><%= link_to(authentication.id, admin_authentication_path(authentication.id)) %></td>
+          <td><%= authentication.created_at.strftime('%Y/%m/%d') %></td>
+          <td><%= authentication.provider %></td>
+          <td><%= authentication.uid %></td>
+          <td><%= render partial: 'stenographer/shared/key_value_row_display', locals: { dictionary: authentication.credentials_hash } %></td>
+          <td>
+            <%= link_to 'View', admin_authentication_path(authentication.id), class: 'button is-small' %>
+          </td>
+        </tr>
+      <% end %>
+      </tbody>
+    </table>
+
+    <div class="changes-pagination">
+      <%= will_paginate @authentications, renderer: BulmaPagination::Rails %>
+    </div>
+  </div>
+</section>

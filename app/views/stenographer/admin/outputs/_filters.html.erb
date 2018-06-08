@@ -1,0 +1,24 @@
+<% filters = @output.filters_hash %>
+<% change_type_selected = filters[:change_type] %>
+<% environment_selected = filters[:environment] %>
+
+<br />
+<h2 class="subtitle">Filters</h2>
+
+<div class="field">
+  <%= label_tag :change_type, 'Change Type (optional)', class: 'label' %>
+  <div class="control">
+    <div class="select">
+      <%= select('filters', 'change_type', Stenographer::Change::VALID_CHANGE_TYPES, { selected: change_type_selected, include_blank: true }) %>
+    </div>
+  </div>
+</div>
+
+<div class="field">
+  <%= label_tag :environment, 'Environment (optional)', class: 'label' %>
+  <div class="control">
+    <div class="select">
+      <%= select('filters', 'environment', Stenographer::Change.environments, { selected: environment_selected, include_blank: true }) %>
+    </div>
+  </div>
+</div>

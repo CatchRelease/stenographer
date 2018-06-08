@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-describe Stenographer::AdminsController, type: :controller do
+describe Stenographer::Admin::ChangesController, type: :controller do
   routes { Stenographer::Engine.routes }
 
   let!(:first_change) { create(:change, created_at: 2.weeks.ago) }
@@ -49,7 +49,7 @@ describe Stenographer::AdminsController, type: :controller do
         it 'redirects to the admin path' do
           create_action
 
-          expect(response).to redirect_to(admin_path(Stenographer::Change.last))
+          expect(response).to redirect_to(admin_change_path(Stenographer::Change.last))
         end
       end
 
@@ -152,8 +152,8 @@ describe Stenographer::AdminsController, type: :controller do
         expect(first_change.reload.tracker_ids).to eq('hummingbird')
       end
 
-      it 'redirects to the admin path' do
-        expect(response).to redirect_to(admin_path(first_change))
+      it 'redirects to the admin change path' do
+        expect(response).to redirect_to(admin_change_path(first_change))
       end
     end
   end
@@ -173,7 +173,7 @@ describe Stenographer::AdminsController, type: :controller do
       it 'redirects to the admin path' do
         destroy_action
 
-        expect(response).to redirect_to(admins_path)
+        expect(response).to redirect_to(admin_changes_path)
       end
     end
   end

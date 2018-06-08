@@ -1,0 +1,55 @@
+<section class="section">
+  <div class="container">
+    <h1 class="title">
+      Admin New Change
+    </h1>
+
+    <%= form_for @change, url: admin_changes_path(@change), method: :post do |f| %>
+      <div class="field">
+        <%= f.label :created_at, 'Date', class: 'label' %>
+        <div class="control">
+          <%= f.date_select(:created_at, :order => [:month, :day, :year]) %>
+        </div>
+      </div>
+
+      <div class="field">
+        <%= f.label :message, class: 'label' %>
+        <div class="control">
+          <%= f.text_area :message, rows: 5, class: 'textarea' %>
+        </div>
+      </div>
+
+      <div class="field">
+        <div class="control">
+          <%= f.label :visible, class: 'label' %>
+          <%= f.check_box :visible %>
+        </div>
+      </div>
+
+      <div class="field">
+        <%= f.label :change_type, class: 'label' %>
+        <div class="control">
+          <div class="select">
+            <%= f.select :change_type, Stenographer::Change::VALID_CHANGE_TYPES, {} %>
+          </div>
+        </div>
+      </div>
+
+      <div class="field">
+        <%= f.label :tracker_ids, class: 'label' %>
+        <div class="control">
+          <%= f.text_field :tracker_ids, class: 'input' %>
+        </div>
+      </div>
+
+      <div class="field is-grouped">
+        <div class="control">
+          <%= f.submit 'Create Change', class: 'button is-link' %>
+        </div>
+        <div class="control">
+          <%= link_to('Back', admin_changes_path, class: 'button is-text') %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</section>

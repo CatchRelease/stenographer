@@ -1,0 +1,22 @@
+<section class="section">
+  <div class="container">
+    <h1 class="title">
+      New Output
+    </h1>
+
+    <h2 class="subtitle"><%= @authentication.provider.titleize %></h2>
+    <%= form_for @output, url: admin_outputs_path(@output), method: :post do |f| %>
+      <%= f.hidden_field :authentication_id, value: @authentication.id %>
+      <%= render partial: "stenographer/admin/outputs/providers/#{@authentication.provider}", cache: true %>
+      <%= render partial: "stenographer/admin/outputs/filters" %>
+      <div class="field is-grouped">
+        <div class="control">
+          <%= f.submit 'Create Output', class: 'button is-link' %>
+        </div>
+        <div class="control">
+          <%= link_to('Back', admin_outputs_path, class: 'button is-text') %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</section>

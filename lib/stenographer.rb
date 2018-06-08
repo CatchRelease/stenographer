@@ -1,13 +1,21 @@
 # frozen_string_literal: true
 
 require 'will_paginate'
+require 'will_paginate-bulma'
 require 'groupdate'
 require 'redcarpet'
 require 'citrus'
+require 'http'
+require 'omniauth'
+require 'omniauth-slack'
+require 'sass-rails'
+require 'bulma-rails'
 
 require 'stenographer/engine'
-require 'stenographer/parsers/base_parser'
-require 'stenographer/parsers/github_parser'
+require 'stenographer/inputs/base_input'
+require 'stenographer/inputs/github_input'
+require 'stenographer/outputs/base_output'
+require 'stenographer/outputs/slack_output'
 require 'stenographer/routing_constraints/viewer_only'
 require 'stenographer/routing_constraints/manager_only'
 
@@ -24,6 +32,7 @@ module Stenographer
     mattr_accessor :use_changelog
     mattr_accessor :parser
     mattr_accessor :tracked_branches
+    mattr_accessor :branch_mapping
 
     self.app_name = 'Stenographer'
     self.app_icon = nil
@@ -40,8 +49,9 @@ module Stenographer
 
     self.use_changelog = true
 
-    self.parser = 'Stenographer::GithubParser'
+    self.parser = 'Stenographer::Inputs::GithubInput'
     self.tracked_branches = %w[master work]
+    self.branch_mapping = { master: 'production', work: 'staging' }
   end
 
   def self.configure(&block)

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-describe Stenographer::GithubParser do
-  let(:parser) { Stenographer::GithubParser.new }
+describe Stenographer::Inputs::GithubInput do
+  let(:parser) { Stenographer::Inputs::GithubInput.new }
 
   describe '#parse' do
     let(:example_response) { File.read("#{Stenographer::Engine.root}/spec/fixtures/github_push_notification.json") }

@@ -1,0 +1,8 @@
+<% dictionary.each_pair do |key, value| %>
+  <%- unless value.empty? %>
+    <div class="field">
+      <label class="label"><%= key %></label>
+      <div><%= value %></div>
+    </div>
+  <% end %>
+<% end %>

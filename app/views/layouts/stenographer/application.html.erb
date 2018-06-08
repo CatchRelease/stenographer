@@ -1,12 +1,15 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Stenographer</title>
+  <title><%= Stenographer.app_name %></title>
   <%= csrf_meta_tags %>
   <%= csp_meta_tag %>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <%= stylesheet_link_tag 'stenographer/application', media: 'all' %>
   <%= stylesheet_link_tag  'https://fonts.googleapis.com/css?family=Work+Sans:300,400,700', media: 'all' %>
+  <%= stylesheet_link_tag 'https://use.fontawesome.com/releases/v5.0.13/css/brands.css', integrity: 'sha384-VGCZwiSnlHXYDojsRqeMn3IVvdzTx5JEuHgqZ3bYLCLUBV8rvihHApoA1Aso2TZA', crossorigin: 'anonymous' %>
+  <%= stylesheet_link_tag 'https://use.fontawesome.com/releases/v5.0.13/css/fontawesome.css', integrity: 'sha384-GVa9GOgVQgOk+TNYXu7S/InPTfSDTtBalSgkgqQ7sCik56N9ztlkoTr2f/T44oKV', crossorigin: 'anonymous' %>
 </head>
 <body>
   <%= render partial: 'stenographer/shared/header' %>

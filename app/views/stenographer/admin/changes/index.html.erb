@@ -1,0 +1,45 @@
+<section class="section">
+  <div class="container">
+    <h1 class="title">
+      Changes Admin
+    </h1>
+
+    <h2 class="subtitle">
+      <%= link_to 'New Change', new_admin_change_path %>
+    </h2>
+
+    <table class="table is-fullwidth is-striped">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Date</th>
+          <th>Message</th>
+          <th>Visible</th>
+          <th>Type</th>
+          <th>Environment</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+      <% @changes.each do |change| %>
+        <tr>
+          <td><%= link_to(change.id, admin_change_path(change.id)) %></td>
+          <td><%= change.created_at.strftime('%Y/%m/%d') %></td>
+          <td title="<%= change.message %>"><%= change.message.truncate(25) %></td>
+          <td><%= change.visible.to_s %></td>
+          <td><%= change.change_type.present? ? change.change_type.titleize : 'General'%></td>
+          <td><%= change.environment %></td>
+          <td>
+            <%= link_to 'View', admin_change_path(change.id), class: 'button is-small' %>
+            <%= link_to 'Edit', edit_admin_change_path(change.id), class: 'button is-small' %>
+          </td>
+        </tr>
+      <% end %>
+      </tbody>
+    </table>
+
+    <div class="changes-pagination">
+      <%= will_paginate @changes, renderer: BulmaPagination::Rails %>
+    </div>
+  </div>
+</section>

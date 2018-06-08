@@ -1,0 +1,59 @@
+<section class="section">
+  <div class="container">
+    <h1 class="title">
+      Outputs Admin
+    </h1>
+
+    <%- if @authentication_count.positive? %>
+      <h2 class="subtitle">
+        <%= form_tag new_admin_output_path, method: :get do |f| %>
+          <div class="field has-addons">
+            <div class="control">
+              <div class="select">
+                <%= select('output', 'authentication_id', Stenographer::Authentication.all.collect {|p| [ p.provider.titleize, p.id ] }) %>
+              </div>
+            </div>
+            <div class="control">
+              <%= submit_tag 'New Output', class: 'button is-link' %>
+            </div>
+          </div>
+        <% end %>
+      </h2>
+
+      <table class="table is-fullwidth is-striped">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Authentication Provider</th>
+            <th>Configuration</th>
+            <th>Filters</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+        <% @outputs.each do |output| %>
+          <tr>
+            <td><%= link_to(output.id, admin_output_path(output.id)) %></td>
+            <td><%= output.authentication.provider.titleize %></td>
+            <td><%= render partial: 'stenographer/shared/key_value_row_display', locals: { dictionary: output.configuration_hash } %></td>
+            <td><%= render partial: 'stenographer/shared/key_value_row_display', locals: { dictionary: output.filters_hash } %></td>
+            <td>
+              <%= link_to 'View', admin_output_path(output.id), class: 'button is-small' %>
+              <%= link_to 'Edit', edit_admin_output_path(output.id), class: 'button is-small' %>
+            </td>
+          </tr>
+        <% end %>
+        </tbody>
+      </table>
+
+          <div class="changes-pagination">
+            <%= will_paginate @outputs, renderer: BulmaPagination::Rails %>
+          </div>
+    <% else %>
+      <div class="notification is-warning">
+        <label class="label">Output Help:</label>
+        Please setup an Authentication first in order to setup an output.
+      </div>
+    <% end %>
+  </div>
+</section>

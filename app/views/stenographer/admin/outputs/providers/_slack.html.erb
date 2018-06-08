@@ -1,0 +1,30 @@
+<% selected = @output.configuration_hash[:channel] %>
+
+<div class="field">
+  <label class="label">Channel</label>
+  <%= hidden_field_tag('configuration[channel_name]')%>
+  <div class="control">
+    <div class="select">
+      <%= select('configuration', 'channel', slack_channels(@output), selected: selected) %>
+    </div>
+  </div>
+</div>
+
+<script>
+  function ready(fn) {
+    if (document.attachEvent ? document.readyState === "complete" : document.readyState !== "loading"){
+      fn();
+    } else {
+      document.addEventListener('DOMContentLoaded', fn);
+    }
+  }
+
+  ready(function () {
+    var channel_config = document.querySelectorAll('#configuration_channel');
+    var channel_name = document.querySelectorAll('#configuration_channel_name');
+
+    channel_config[0].addEventListener('change', function (e) {
+      channel_name[0].value = e.target.options[e.target.selectedIndex].text;
+    });
+  });
+</script>

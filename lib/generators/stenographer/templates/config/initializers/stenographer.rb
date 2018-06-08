@@ -2,7 +2,7 @@
 
 Stenographer.configure do |config|
   # The application name to use for the home link name if no icon is defined.
-  config.app_name = 'Stenography'
+  config.app_name = 'Stenographer'
 
   # The string location of the icon to use for the header, based off your app/assets/images directory.
   # i.e. config.app_icon = 'logo' would serve app/assets/images/logo.png
@@ -50,15 +50,39 @@ Stenographer.configure do |config|
   # when false. If there is a changelog message, it will be shown, otherwise it will be the subject.
   config.use_changelog = true
 
-  # Which parser to use for the incoming change events. Currently only supports Github Webhooks.
+  # Which input to use for the incoming change events. Currently only supports Github Webhooks.
   #
   # Example:
-  # config.parser = 'Stenographer::GithubParser'
-  config.parser
+  # config.parser = 'Stenographer::Inputs::GithubInput'
+  config.parser = 'Stenographer::Inputs::GithubInput'
 
-  # When the parser is set to Github, which branches to manage with the changelog.
+  # ====================================================================================================================
+  #
+  # GitHub Parser Configuration
+  #
+  # ====================================================================================================================
+
+  # Determines which branches the changelog takes into account
   #
   # Example:
   # config.tracked_branches = %w[master work]
   config.tracked_branches = %w[master work]
+
+  # Creates a human readable mapping of branch names
+  #
+  # Example
+  # config.branch_mapping = { master: 'production', work: 'staging' }
+  config.branch_mapping = { master: 'production', work: 'staging' }
 end
+
+# ======================================================================================================================
+#
+# Omniauth Provider Configuration
+#
+# ======================================================================================================================
+
+# SLACK Provider
+#
+# Rails.application.config.middleware.use OmniAuth::Builder do
+#   provider :slack, 'API_KEY', 'API_SECRET', scope: 'identity,bot'
+# end

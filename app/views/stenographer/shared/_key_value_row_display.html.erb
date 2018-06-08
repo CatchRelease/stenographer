@@ -1,0 +1,5 @@
+<% dictionary.each_pair do |key, value| %>
+  <%- unless value.nil? %>
+    <strong><%= key %>: </strong><%= value %>
+  <% end %>
+<% end %>

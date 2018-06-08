@@ -13,6 +13,11 @@ To View:
 Open a browser to http://host:port/stenographer or whatever you've set your mount point to.
 ```
 
+## Automatic Changelogs
+1. First, setup your input type in your config/stenographer.rb. As of right now, Stenographer only supports ``Stenographer::Inputs::GithubInput`` which users github webhooks.
+1. Then, setup your GitHub webhook setup to use "just the push event" to point at `https://#{YOUR_DOMAIN}/#{STENOGRAPHER_MOUNT_POINT}/changes`
+1. Finally, add `[changelog My change message]` to your commits.
+
 ## Installation
 Add this line to your application's Gemfile:
 
@@ -55,6 +60,13 @@ View the site
 [http://locahost:3000/stenographer](http://locahost:3000/stenographer)
 
 #### Testing
+Set up the database
+
+```ruby
+$ RAILS_ENV=test rake app:db:setup
+```
+
+Run the tests
 ```ruby
 $ rake spec
 ```

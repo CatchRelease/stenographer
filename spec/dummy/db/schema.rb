@@ -12,6 +12,15 @@
 
 ActiveRecord::Schema.define(version: 2018_05_02_170621) do
 
+  create_table "stenographer_authentications", force: :cascade do |t|
+    t.string "provider", null: false
+    t.string "uid", null: false
+    t.string "credentials"
+    t.text "source"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "stenographer_changes", force: :cascade do |t|
     t.string "subject"
     t.string "message", null: false
@@ -20,6 +29,14 @@ ActiveRecord::Schema.define(version: 2018_05_02_170621) do
     t.string "environment"
     t.string "tracker_ids"
     t.text "source"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "stenographer_outputs", force: :cascade do |t|
+    t.bigint "authentication_id", null: false
+    t.text "configuration", null: false
+    t.text "filters"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

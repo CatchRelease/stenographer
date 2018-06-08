@@ -21,6 +21,15 @@ describe Stenographer::Change, type: :model do
         change.save
       end
     end
+
+    describe 'after_commit on: :create' do
+      it 'calls send_to_outputs' do
+        change = build(:change, environment: ' WOW ')
+        expect(change).to receive(:send_to_outputs)
+
+        change.save
+      end
+    end
   end
 
   describe 'Methods' do
@@ -47,6 +56,45 @@ describe Stenographer::Change, type: :model do
 
       it 'translates its message to markdown' do
         expect(subject.to_markdown.strip).to eq('<h1>hello</h1>')
+      end
+    end
+
+    describe '#matches_filters' do
+      let!(:change) { create(:change) }
+      let!(:output) { create(:output) }
+
+      describe 'no output' do
+        it 'returns false' do
+          expect(change.matches_filters).to be_falsey
+        end
+      end
+
+      describe 'no filters' do
+        it 'returns true' do
+          expect(change.matches_filters(output)).to be_truthy
+        end
+      end
+
+      describe 'has match' do
+        before :each do
+          change.update(environment: 'community')
+          output.update(filters: { environment: 'community' }.to_json)
+        end
+
+        it 'returns true' do
+          expect(change.matches_filters(output)).to be_truthy
+        end
+      end
+
+      describe 'no match' do
+        before :each do
+          change.update(environment: 'community')
+          output.update(filters: { environment: 'the office' }.to_json)
+        end
+
+        it 'returns false' do
+          expect(change.matches_filters(output)).to be_falsey
+        end
       end
     end
   end

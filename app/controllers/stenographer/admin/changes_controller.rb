@@ -3,7 +3,7 @@
 require_dependency 'stenographer/application_controller'
 
 module Stenographer
-  class AdminsController < ApplicationController
+  class Admin::ChangesController < ApplicationController
     before_action :assign_change, only: %i[show edit update destroy]
 
     def new
@@ -15,7 +15,7 @@ module Stenographer
       @change.environment = Rails.env.to_s
 
       if @change.save
-        redirect_to admin_path(@change), notice: 'Change Created'
+        redirect_to admin_change_path(@change), notice: 'Change Created'
       else
         flash.now[:alert] = @change.errors.full_messages.to_sentence
         render :new
@@ -37,7 +37,7 @@ module Stenographer
       if @change.update(change_params)
         message[:notice] = 'Change Updated'
 
-        redirect_to admin_path(@change), message
+        redirect_to admin_change_path(@change), message
       else
         flash.now[:alert] = @change.errors.full_messages.to_sentence
         render :edit
@@ -46,9 +46,9 @@ module Stenographer
 
     def destroy
       if @change.destroy
-        redirect_to admins_path, notice: 'Change Destroyed'
+        redirect_to admin_changes_path, notice: 'Change Destroyed'
       else
-        redirect_to admin_path(@change), alert: @change.errors.full_messages.to_sentence
+        redirect_to admin_change_path(@change), alert: @change.errors.full_messages.to_sentence
       end
     end
 

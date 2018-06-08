@@ -1,0 +1,26 @@
+<section class="section">
+  <div class="container">
+    <h1 class="title">
+      Edit Output #<%= @output.id %>
+    </h1>
+
+    <h2 class="subtitle">
+      <%= link_to 'Show', admin_output_path(@output.id) %>
+      |
+      <%= link_to 'Delete', admin_output_path(@output), :method => :delete, :data => { :confirm => 'Are you sure you want to delete this Output?' } %>
+    </h2>
+
+    <%= form_for @output, url: admin_output_path(@output), method: :patch do |f| %>
+      <%= render partial: "stenographer/admin/outputs/providers/#{@authentication.provider}", cache: true %>
+      <%= render partial: "stenographer/admin/outputs/filters" %>
+      <div class="field is-grouped">
+        <div class="control">
+          <%= f.submit 'Update Output', class: 'button is-link' %>
+        </div>
+        <div class="control">
+          <%= link_to('Back', admin_output_path(@output.id), class: 'button is-text') %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</section>

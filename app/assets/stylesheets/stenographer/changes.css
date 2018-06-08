@@ -1,9 +1,7 @@
-/*
-  Place all the styles related to the matching controller here.
-  They will automatically be included in application.css.
-*/
-
-ul.changes {}
+ul.changes {
+    list-style: circle;
+    padding-left: 30px;
+}
 
 li.change {
     margin: 5px 0;
@@ -15,53 +13,7 @@ li.change {
     margin: 2px;
 }
 
-label.change-label {
-    font-size: 14px;
-}
-
-.change-type-group {
-    font-size: 14px;
-    font-weight: 600;
-}
-
-.change-link {
-    font-size: 12px;
-}
-
-.change-item {
-    margin: 20px 0;
-}
-
-.change-value {
-    margin: 10px;
-}
-
-.change-actions {
-    text-align: center;
-    margin-bottom: 10px;
-}
-
-.change-changeset {
-    margin-bottom: 40px;
-}
-
-.change-date-group {
-    border-bottom: 1px solid #FF851B;
-    margin-bottom: 10px;
-    padding-bottom: 5px;
-}
-
-.changes-environments {
-    text-align: center;
-    margin-bottom: 60px;
-}
-
-.changes-environments label {
-    display: inline-block
-}
-
 .changes-pagination {
-    text-align: center;
     margin: 40px 0;
 }
 

@@ -1,16 +1,20 @@
-<header class="main-header">
-  <div class="header-icon">
-    <%= link_to root_path do %>
+<nav class="navbar is-light" role="navigation" aria-label="main navigation">
+  <div class="navbar-brand">
+    <%= link_to root_path, class: 'navbar-item' do %>
       <% if app_icon? %>
         <%= image_tag app_icon %>
       <% else %>
-        <%= app_name %>
+        <span class="has-text-weight-bold is-uppercase">
+          <%= app_name %>
+        </span>
       <% end %>
     <% end %>
   </div>
-  <div class="header-links">
-    <% if manager? %>
-      <%= link_to('Admin', admins_path) %>
-    <% end %>
-  </div>
-</header>
+  <% if manager? %>
+    <div class="navbar-menu is-active">
+      <div class="navbar-end">
+        <%= link_to('Admin', admin_index_path, class: 'navbar-item') %>
+      </div>
+    </div>
+  <% end %>
+</nav>

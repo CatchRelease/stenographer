@@ -1,55 +1,56 @@
-<section class="body-wrapper">
-  <header class="sub-header">
-    <%= "Product Updates - #{ params[:environment].present? ? params[:environment].capitalize : Stenographer.default_environment.capitalize }" %>
-  </header>
+<section class="section">
+  <div class="container">
+    <h1 class="title"><%= Stenographer.app_name %></h1>
 
-  <% if @changes.present? %>
-    <div class="changes-environments">
-      <label>Environment:</label>
-      <% Stenographer::Change.environments.each do |environment| %>
-        <% environment_params = { environment: environment } %>
-        <%= link_to "#{environment.capitalize}", changes_path(environment_params), class: environment_link_class(environment) %>
-      <% end %>
-    </div>
-
-    <% date_groups = @changes.group_by_week { |change| change.created_at } %>
-
-    <% date_groups.sort { |group1, group2| group2[0] <=> group1[0] }.each do |date_group| %>
-      <article class="change-changeset">
-        <% date_group_date = date_group[0] %>
-        <% date_group_results = date_group[1] %>
-
-        <div class="change-date-group">Week of <%= date_group_date %></div>
-
-        <% change_type_groups = date_group_results.group_by(&:change_type) %>
-
-        <% all_groups = [nil] + Stenographer.change_types %>
-
-        <% all_groups.each do |group_type| %>
-          <% if change_type_groups[group_type].present? %>
-            <% group = change_type_groups[group_type] %>
-            <% group_name = group_type.nil? ? 'General' : group_type.titleize %>
-
-            <div class="change-type-group"><%= group_name %></div>
-
-            <ul class="changes">
-              <% group.each do |change| %>
-                <li class="change">
-                  <%= change.to_markdown %>
-                  <%= link_to('(more)', change_path(change.id), class: 'change-link') %>
-                </li>
-              <% end %>
-            </ul>
-          <% end %>
+    <% if @changes.present? %>
+      <div class="box">
+        <label class="label">Environment:</label>
+        <% Stenographer::Change.environments.each do |environment| %>
+          <% environment_params = { environment: environment } %>
+          <%= link_to "#{environment.capitalize}", changes_path(environment_params), class: environment_link_class(environment) %>
         <% end %>
+      </div>
 
-      </article>
+      <% date_groups = @changes.group_by_week { |change| change.created_at } %>
+
+      <% date_groups.sort { |group1, group2| group2[0] <=> group1[0] }.each do |date_group| %>
+        <article>
+          <% date_group_date = date_group[0] %>
+          <% date_group_results = date_group[1] %>
+
+          <p class="title is-4 has-text-centered">Week of <%= date_group_date %></p>
+          <div>
+            <% change_type_groups = date_group_results.group_by(&:change_type) %>
+
+            <% all_groups = [nil] + Stenographer.change_types %>
+
+            <% all_groups.each do |group_type| %>
+              <% if change_type_groups[group_type].present? %>
+                <% group = change_type_groups[group_type] %>
+                <% group_name = group_type.nil? ? 'General' : group_type.titleize %>
+
+                <br />
+                <h4 class="subtitle is-5 has-text-weight-semibold"><%= group_name %></h4>
+
+                <ul class="changes">
+                  <% group.each do |change| %>
+                    <li class="change">
+                      <%= change.to_markdown %>
+                      <%= link_to('(more)', change_path(change.id), class: 'change-link') %>
+                    </li>
+                  <% end %>
+                </ul>
+              <% end %>
+            <% end %>
+          </div>
+        </article>
+      <% end %>
+
+      <div class="changes-pagination">
+        <%= will_paginate @changes, renderer: BulmaPagination::Rails %>
+      </div>
+    <% else %>
+      <div class="changes-none">Nothing to see here yet, time to get to changing.</div>
     <% end %>
-
-    <div class="changes-pagination">
-      <%= will_paginate @changes %>
-    </div>
-  <% else %>
-    <div class="changes-none">Nothing to see here yet, time to get to changing.</div>
-  <% end %>
+  </div>
 </section>

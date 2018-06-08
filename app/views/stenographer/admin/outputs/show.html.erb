@@ -1,0 +1,35 @@
+<section class="section">
+  <div class="container">
+    <h1 class="title">
+      Output #<%= @output.id %>
+    </h1>
+
+    <h2 class="subtitle">
+      <%= link_to 'Edit', edit_admin_output_path(@output.id) %>
+      |
+      <%= link_to 'Delete', admin_output_path(@output), :method => :delete, :data => {:confirm => 'Are you sure you want to delete this Output?'} %>
+    </h2>
+
+    <div class="field">
+      <label class="label">Date</label>
+      <div><%= @output.created_at.strftime('%m/%d/%Y') %></div>
+    </div>
+
+    <div class="field">
+      <label class="label">Authentication Provider</label>
+      <div><%= link_to @output.authentication.provider.titleize, admin_authentication_path(@output.authentication.id) %></div>
+    </div>
+
+    <br />
+    <h2 class="title is-4">Configuration</h2>
+    <%= render partial: 'stenographer/shared/key_value_field_display', locals: { dictionary: @output.configuration_hash } %>
+
+    <br />
+    <h2 class="title is-4">Filters</h2>
+    <%= render partial: 'stenographer/shared/key_value_field_display', locals: { dictionary: @output.filters_hash } %>
+
+    <div class="field">
+      <%= link_to('Back', admin_outputs_path, class: 'button is-link') %>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,27 @@
+<section class="section">
+  <div class="container">
+    <div class="tile is-ancestor">
+      <div class="tile is-parent">
+        <div class="tile is-child box notification is-primary">
+          <p class="title">Changes</p>
+          <p class="subtitle"><%= pluralize(@change_count, 'Change') %></p>
+          <%= link_to 'Manage Changes', admin_changes_path, class: 'button' %>
+        </div>
+      </div>
+      <div class="tile is-parent">
+        <div class="tile is-child box notification is-info">
+          <p class="title">Authentications</p>
+          <p class="subtitle"><%= pluralize(@authentication_count, 'Authentication') %></p>
+          <%= link_to 'Manage Authentications', admin_authentications_path, class: 'button' %>
+        </div>
+      </div>
+      <div class="tile is-parent">
+        <div class="tile is-child box notification is-success">
+          <p class="title">Outputs</p>
+          <p class="subtitle"><%= pluralize(@output_count, 'Output') %></p>
+          <%= link_to 'Manage Outputs', admin_outputs_path, class: 'button' %>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
