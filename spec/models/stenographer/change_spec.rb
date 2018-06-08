@@ -86,6 +86,17 @@ describe Stenographer::Change, type: :model do
         end
       end
 
+      describe 'has empty match' do
+        before :each do
+          change.update(environment: 'staging')
+          output.update(filters: { environment: '' }.to_json)
+        end
+
+        it 'returns true' do
+          expect(change.matches_filters(output)).to be_truthy
+        end
+      end
+
       describe 'no match' do
         before :each do
           change.update(environment: 'community')

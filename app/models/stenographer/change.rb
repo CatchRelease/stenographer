@@ -29,7 +29,7 @@ module Stenographer
       return true if filters.empty?
 
       filters.none? do |key, value|
-        send(key) != value
+        value.present? && send(key) != value
       end
     end
 
