@@ -53,7 +53,7 @@ module Stenographer
       private
 
       def branch_to_environment(branch)
-        Stenographer.branch_mapping[branch].presence || branch
+        Stenographer.branch_mapping[branch.to_sym].presence || branch
       end
 
       def tracked_branch?(branch)

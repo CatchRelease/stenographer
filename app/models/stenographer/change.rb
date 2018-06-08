@@ -15,7 +15,7 @@ module Stenographer
     end
 
     def self.environments
-      ['all'] + distinct(:environment).pluck('lower(environment)')
+      ['all'] + distinct(:environment).pluck(Arel.sql('lower(environment)'))
     end
 
     def to_markdown

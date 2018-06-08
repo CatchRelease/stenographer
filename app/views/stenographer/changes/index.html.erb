@@ -2,7 +2,7 @@
   <div class="container">
     <h1 class="title"><%= Stenographer.app_name %></h1>
 
-    <% if @changes.present? %>
+    <% if @change_count.positive? %>
       <div class="box">
         <label class="label">Environment:</label>
         <% Stenographer::Change.environments.each do |environment| %>
