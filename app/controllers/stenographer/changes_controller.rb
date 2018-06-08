@@ -28,7 +28,7 @@ module Stenographer
                   Change.where(environment: Stenographer.default_environment)
                 end
 
-      @change_count = changes.where(visible: true).count
+      @change_count = Change.where(visible: true).count
       @changes = changes.where(visible: true)
                         .order(created_at: :desc)
                         .paginate(page: page, per_page: Stenographer.per_page)
