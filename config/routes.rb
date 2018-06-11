@@ -18,5 +18,5 @@ Stenographer::Engine.routes.draw do
   get '/auth/:provider/callback', to: 'authentications#create'
   get '/auth/failure', to: 'authentications#failure'
 
-  root 'changes#index'
+  root 'changes#index', constraints: Stenographer::RoutingConstraints::ViewerOnly.new
 end
