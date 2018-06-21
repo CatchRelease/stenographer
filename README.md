@@ -1,10 +1,11 @@
 # Stenographer
-Stenographer is a simplistic way to manage your changes and show them to the users.
+Stenographer is a simplistic way to manage your changes and show them to the users. When using an input like Github that
+has a unique id shared across branches, it will also manage grouping changes by environment.
 
 ## Usage
 To create a new item:
 ```ruby
-Stenography::Change.create(message: 'My Change', change_type: 'new/improved/fixed', visible: true, environment: 'production', tracker_ids: '#12345', source: '{}')
+Stenography::Change.create(message: 'My Change', change_type: 'new/improved/fixed', visible: true, environments: 'production', tracker_ids: '#12345', source: '{}')
 ```
 It's advised to store the source so you can parse it again later if needed.
 

@@ -13,7 +13,7 @@ describe Stenographer::AdminController, type: :controller do
       let!(:authentication) { create(:authentication) }
 
       before :each do
-        index_action(environment: 'all')
+        index_action
       end
 
       it 'assigns @change_count' do

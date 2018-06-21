@@ -5,9 +5,10 @@ class CreateStenographerTables < ActiveRecord::Migration[5.2]
     create_table :stenographer_changes do |t|
       t.string :subject
       t.string :message, null: false
+      t.string :source_id
       t.boolean :visible, default: true, null: false
       t.string :change_type
-      t.string :environment
+      t.string :environments
       t.string :tracker_ids
       t.text :source
 

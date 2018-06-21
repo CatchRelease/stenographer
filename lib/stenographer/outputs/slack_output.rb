@@ -16,7 +16,7 @@ module Stenographer
 
         post_json_request(endpoint: 'chat.postMessage', params: {
                             channel: configuration[:channel],
-                            text: "Deploying updates to *#{@change.environment.upcase}*:",
+                            text: "Deployed updates to *#{@change.environments.upcase}*:",
                             attachments: [generate_attachment]
                           })
       end
@@ -36,8 +36,7 @@ module Stenographer
 
         {
           'fallback': note,
-          'text': note,
-          'color': @change.environment == 'production' ? 'good' : 'warning'
+          'text': note
         }
       end
 

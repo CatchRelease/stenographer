@@ -20,9 +20,6 @@ Stenographer.configure do |config|
   # The number of items shown per page on the index and admin index
   config.per_page = 100
 
-  # The default environment to used filter the changes.
-  config.default_environment = 'production'
-
   # The viewer configuration specifies who is allowed to view changes. By default both viewing and managing are both set
   # to true.
   #

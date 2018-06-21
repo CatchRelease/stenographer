@@ -12,7 +12,7 @@ module Stenographer
 
     def create
       @change = Change.new(change_params)
-      @change.environment = Rails.env.to_s
+      @change.environments = Rails.env.to_s.downcase
 
       if @change.save
         redirect_to admin_change_path(@change), notice: 'Change Created'
@@ -55,7 +55,7 @@ module Stenographer
     private
 
     def change_params
-      params.require(:change).permit(:created_at, :message, :visible, :change_type, :environment, :tracker_ids)
+      params.require(:change).permit(:created_at, :message, :visible, :change_type, :environments, :tracker_ids)
     end
 
     def assign_change

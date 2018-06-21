@@ -3,14 +3,6 @@
     <h1 class="title"><%= Stenographer.app_name %></h1>
 
     <% if @change_count.positive? %>
-      <div class="box">
-        <label class="label">Environment:</label>
-        <% Stenographer::Change.environments.each do |environment| %>
-          <% environment_params = { environment: environment } %>
-          <%= link_to "#{environment.capitalize}", changes_path(environment_params), class: environment_link_class(environment) %>
-        <% end %>
-      </div>
-
       <% date_groups = @changes.group_by_week { |change| change.created_at } %>
 
       <% date_groups.sort { |group1, group2| group2[0] <=> group1[0] }.each do |date_group| %>
@@ -36,7 +28,10 @@
                   <% group.each do |change| %>
                     <li class="change">
                       <%= change.to_markdown %>
-                      <%= link_to('(more)', change_path(change.id), class: 'change-link') %>
+                      <div>
+                        <%= render partial: 'stenographer/shared/tags', locals: { tags: change.environments_to_tags } %>
+                        <%= link_to('(more)', change_path(change.id), class: 'change-link') %>
+                      </div>
                     </li>
                   <% end %>
                 </ul>

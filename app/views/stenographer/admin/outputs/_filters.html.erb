@@ -15,10 +15,10 @@
 </div>
 
 <div class="field">
-  <%= label_tag :environment, 'Environment (optional)', class: 'label' %>
+  <%= label_tag :environments, 'Environment (optional)', class: 'label' %>
   <div class="control">
     <div class="select">
-      <%= select('filters', 'environment', Stenographer::Change.environments, { selected: environment_selected, include_blank: true }) %>
+      <%= select('filters', 'environments', Stenographer::Change.environments, { selected: environment_selected, include_blank: true }) %>
     </div>
   </div>
 </div>

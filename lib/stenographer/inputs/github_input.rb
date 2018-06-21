@@ -22,6 +22,7 @@ module Stenographer
         if tracked_branch?(branch)
           commits.each do |commit|
             message = commit_message(commit)
+            source_id = commit_id(commit)
             subject = message.lines.first.strip
             changelog_message = parse_changelog_message(message)
             tracker_ids = parse_tracker_ids(message)
@@ -39,8 +40,9 @@ module Stenographer
             changes << {
               subject: subject,
               message: displayed_message,
+              source_id: source_id,
               visible: true,
-              environment: branch_to_environment(branch),
+              environments: branch_to_environment(branch),
               tracker_ids: tracker_ids.join(', '),
               source: commit.to_json
             }
@@ -74,6 +76,10 @@ module Stenographer
 
       def commit_message(commit)
         commit[:message]
+      end
+
+      def commit_id(commit)
+        commit[:id]
       end
 
       def parse_tracker_ids(commit)

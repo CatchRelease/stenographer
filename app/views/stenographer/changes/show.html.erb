@@ -22,8 +22,10 @@
     </div>
 
     <div class="field">
-      <label class="label">Environment</label>
-      <div><%= @change.environment %></div>
+      <label class="label">Environments</label>
+      <div>
+        <%= render partial: 'stenographer/shared/tags', locals: {tags: @change.environments_to_tags} %>
+      </div>
     </div>
 
     <div class="field">

@@ -1,0 +1,3 @@
+<% tags.sort_by { |tag| tag[:name] }.each do |tag| %>
+  <span class="tag <%= tag[:color] %>"><%= tag[:name] %></span>
+<% end %>

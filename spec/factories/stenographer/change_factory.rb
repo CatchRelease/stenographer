@@ -5,7 +5,7 @@ FactoryBot.define do
     message Faker::HitchhikersGuideToTheGalaxy.quote
     visible Faker::Boolean.boolean
     change_type Stenographer::Change::VALID_CHANGE_TYPES.sample
-    environment Faker::StarWars.planet
+    environments Faker::StarWars.planet
     tracker_ids '#56789'
     source '{}'
   end

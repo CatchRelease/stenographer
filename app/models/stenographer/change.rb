@@ -11,11 +11,15 @@ module Stenographer
     validates :change_type, inclusion: { in: VALID_CHANGE_TYPES }, allow_nil: true
 
     def sanitize_environment
-      environment.present? ? environment.downcase.strip : nil
-    end
-
-    def self.environments
-      ['all'] + distinct(:environment).pluck(Arel.sql('lower(environment)'))
+      if environments.present?
+        environments_array = environments.split(',').map do |environment|
+          environment.downcase.strip
+        end
+        environments_array.uniq!
+        environments_array.join(', ')
+      else
+        nil
+      end
     end
 
     def to_markdown
@@ -29,7 +33,39 @@ module Stenographer
       return true if filters.empty?
 
       filters.none? do |key, value|
-        value.present? && send(key) != value
+        if value.present? && key == :environments
+          environments_array = environments.split(',').map(&:strip)
+          environments_array.last != value.strip
+        else
+          value.present? && send(key) != value
+        end
+      end
+    end
+
+    def environments_to_tags
+      tags = []
+
+      environment_array = environments.split(',').map(&:strip)
+      environment_array.each do |environment|
+        tags << {
+          name: environment.capitalize,
+          color: environment == 'production' ? 'is-primary' : 'is-light'
+        }
+      end
+
+      tags
+    end
+
+    def self.create_or_update_by_source_id(change_params)
+      source_id = change_params[:source_id]
+
+      Rails.logger.info "source_id: #{source_id}"
+
+      if source_id.present? && (change = Change.find_by(source_id: source_id)).present?
+        change.environments += ", #{change_params[:environments]}"
+        change.save
+      else
+        Change.create(change_params)
       end
     end
 

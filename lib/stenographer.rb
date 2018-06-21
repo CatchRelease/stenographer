@@ -27,7 +27,6 @@ module Stenographer
     mattr_accessor :viewer
     mattr_accessor :manager
     mattr_accessor :per_page
-    mattr_accessor :default_environment
     mattr_accessor :markdown_renderer
     mattr_accessor :use_changelog
     mattr_accessor :parser
@@ -43,7 +42,6 @@ module Stenographer
     self.manager = true
 
     self.per_page = 100
-    self.default_environment = 'production'
 
     self.markdown_renderer = Redcarpet::Markdown.new(Redcarpet::Render::HTML, autolink: true)
 

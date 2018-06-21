@@ -11,37 +11,24 @@ module Stenographer
 
       parms = params.permit!
       changes = parser.parse(parms)
-      changes.each { |change| Change.create(change) }
+      changes.each do |change|
+        Change.create_or_update_by_source_id(change)
+      end
 
       head :ok
     end
 
     def index
       page = params[:page] || 1
-      environment = params[:environment].presence
-
-      changes = if environment == 'all'
-                  Change
-                elsif valid_environment?
-                  Change.where(environment: params[:environment])
-                else
-                  Change.where(environment: Stenographer.default_environment)
-                end
 
       @change_count = Change.where(visible: true).count
-      @changes = changes.where(visible: true)
-                        .order(created_at: :desc)
-                        .paginate(page: page, per_page: Stenographer.per_page)
+      @changes = Change.where(visible: true)
+                       .order(created_at: :desc)
+                       .paginate(page: page, per_page: Stenographer.per_page)
     end
 
     def show
       @change = Change.find(params[:id])
-    end
-
-    private
-
-    def valid_environment?
-      params[:environment].present? && Change.environments.include?(params[:environment])
     end
   end
 end

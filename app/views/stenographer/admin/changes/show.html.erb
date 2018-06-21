@@ -21,6 +21,11 @@
     </div>
 
     <div class="field">
+      <label class="label">Source ID</label>
+      <div><%= @change.source_id %></div>
+    </div>
+
+    <div class="field">
       <label class="label">Type</label>
       <div>
         <%= @change.change_type.present? ? @change.change_type.titleize : 'General' %>
@@ -28,8 +33,10 @@
     </div>
 
     <div class="field">
-      <label class="label">Environment</label>
-      <div><%= @change.environment %></div>
+      <label class="label">Environments</label>
+      <div>
+        <%= render partial: 'stenographer/shared/tags', locals: { tags: @change.environments_to_tags } %>
+      </div>
     </div>
 
     <div class="field">

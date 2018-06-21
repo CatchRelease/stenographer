@@ -15,7 +15,7 @@ describe Stenographer::Change, type: :model do
   describe 'Callbacks' do
     describe 'before_save' do
       it 'calls sanitize_environment' do
-        change = build(:change, environment: ' WOW ')
+        change = build(:change, environments: ' WOW ')
         expect(change).to receive(:sanitize_environment)
 
         change.save
@@ -24,7 +24,7 @@ describe Stenographer::Change, type: :model do
 
     describe 'after_commit on: :create' do
       it 'calls send_to_outputs' do
-        change = build(:change, environment: ' WOW ')
+        change = build(:change, environments: ' WOW ')
         expect(change).to receive(:send_to_outputs)
 
         change.save
@@ -35,19 +35,21 @@ describe Stenographer::Change, type: :model do
   describe 'Methods' do
     describe '#sanitize_environment' do
       it 'downcases and removes spaces' do
-        change = build(:change, environment: ' WOW ')
+        change = build(:change, environments: ' WOW ')
 
         expect(change.sanitize_environment).to eq('wow')
       end
-    end
 
-    describe '.environments' do
-      it 'returns all the environments available' do
-        create(:change, environment: 'alpha')
-        create(:change, environment: 'Alpha')
-        create(:change, environment: 'beta')
+      it 'does not break multiple environments' do
+        change = build(:change, environments: 'thing1, thing2')
 
-        expect(Stenographer::Change.environments).to eq(%w[all alpha beta])
+        expect(change.sanitize_environment).to eq('thing1, thing2')
+      end
+
+      it 'uniques the items' do
+        change = build(:change, environments: 'thing1, thing2, thing1')
+
+        expect(change.sanitize_environment).to eq('thing1, thing2')
       end
     end
 
@@ -76,20 +78,46 @@ describe Stenographer::Change, type: :model do
       end
 
       describe 'has match' do
-        before :each do
-          change.update(environment: 'community')
-          output.update(filters: { environment: 'community' }.to_json)
+        describe 'normal field' do
+          before :each do
+            change.update(change_type: 'new')
+            output.update(filters: { change_type: 'new' }.to_json)
+          end
+
+          it 'returns true' do
+            expect(change.matches_filters(output)).to be_truthy
+          end
         end
 
-        it 'returns true' do
-          expect(change.matches_filters(output)).to be_truthy
+        describe 'environments' do
+          describe 'matches last' do
+            before :each do
+              change.update(environments: 'florida, california')
+              output.update(filters: { environments: 'california' }.to_json)
+            end
+
+            it 'returns true' do
+              expect(change.matches_filters(output)).to be_truthy
+            end
+          end
+
+          describe 'does not match if not last' do
+            before :each do
+              change.update(environments: 'california, florida')
+              output.update(filters: { environments: 'california' }.to_json)
+            end
+
+            it 'returns true' do
+              expect(change.matches_filters(output)).to be_falsey
+            end
+          end
         end
       end
 
       describe 'has empty match' do
         before :each do
-          change.update(environment: 'staging')
-          output.update(filters: { environment: '' }.to_json)
+          change.update(environments: 'staging')
+          output.update(filters: { environments: '' }.to_json)
         end
 
         it 'returns true' do
@@ -99,12 +127,116 @@ describe Stenographer::Change, type: :model do
 
       describe 'no match' do
         before :each do
-          change.update(environment: 'community')
-          output.update(filters: { environment: 'the office' }.to_json)
+          change.update(environments: 'community')
+          output.update(filters: { environments: 'the office' }.to_json)
         end
 
         it 'returns false' do
           expect(change.matches_filters(output)).to be_falsey
+        end
+      end
+    end
+
+    describe '#environments_to_tags' do
+      let!(:change) { create(:change) }
+
+      describe 'single environment' do
+        it 'returns a single item' do
+          tag_array = change.environments_to_tags
+
+          expect(tag_array.length).to eq(1)
+        end
+
+        it 'returns a tag hash' do
+          change.update(environments: 'cheese')
+          tag_array = change.environments_to_tags
+
+          expect(tag_array.first[:name]).to eq('Cheese')
+          expect(tag_array.first[:color]).to eq('is-light')
+        end
+
+        it 'production gets special color' do
+          change.update(environments: 'production')
+          tag_array = change.environments_to_tags
+
+          expect(tag_array.first[:name]).to eq('Production')
+          expect(tag_array.first[:color]).to eq('is-primary')
+        end
+      end
+
+      describe 'multiple environments' do
+        it 'returns a multiple items' do
+          change.update(environments: 'staging, production')
+          tag_array = change.environments_to_tags
+
+          expect(tag_array.length).to eq(2)
+        end
+      end
+    end
+
+    describe '.create_or_update_by_source_id' do
+      describe 'has source id' do
+        describe 'source id found' do
+          let!(:existing_change) { create(:change, source_id: '#aol', environments: 'england') }
+
+          it 'does not create a new change' do
+            expect {
+              Stenographer::Change.create_or_update_by_source_id({
+                                                                     subject: 'test',
+                                                                     message: 'test1',
+                                                                     source_id: '#aol',
+                                                                     visible: true,
+                                                                     environments: 'france',
+                                                                     tracker_ids: '1234',
+                                                                     source: {}.to_json
+                                                                 })
+            }.not_to change(Stenographer::Change, :count)
+          end
+
+          it 'adds to the changes environment' do
+            Stenographer::Change.create_or_update_by_source_id({
+                                                                   subject: 'test',
+                                                                   message: 'test1',
+                                                                   source_id: '#aol',
+                                                                   visible: true,
+                                                                   environments: 'france',
+                                                                   tracker_ids: '1234',
+                                                                   source: {}.to_json
+                                                               })
+
+            expect(existing_change.reload.environments).to eq('england, france')
+          end
+        end
+
+        describe 'source id not found' do
+          it 'creates a new change' do
+            expect {
+              Stenographer::Change.create_or_update_by_source_id({
+                                                                     subject: 'test',
+                                                                     message: 'test1',
+                                                                     source_id: '#14983989',
+                                                                     visible: true,
+                                                                     environments: 'test',
+                                                                     tracker_ids: '1234',
+                                                                     source: {}.to_json
+                                                                 })
+            }.to change(Stenographer::Change, :count).by(1)
+          end
+        end
+      end
+
+      describe 'no source id' do
+        it 'creates a new change' do
+          expect {
+            Stenographer::Change.create_or_update_by_source_id({
+                                                                 subject: 'test',
+                                                                 message: 'test1',
+                                                                 visible: true,
+                                                                 environments: 'test',
+                                                                 tracker_ids: '1234',
+                                                                 source: {}.to_json
+                                                               })
+          }.to change(Stenographer::Change, :count).by(1)
         end
       end
     end

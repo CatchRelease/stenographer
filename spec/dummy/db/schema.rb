@@ -24,9 +24,10 @@ ActiveRecord::Schema.define(version: 2018_05_02_170621) do
   create_table "stenographer_changes", force: :cascade do |t|
     t.string "subject"
     t.string "message", null: false
+    t.string "source_id"
     t.boolean "visible", default: true, null: false
     t.string "change_type"
-    t.string "environment"
+    t.string "environments"
     t.string "tracker_ids"
     t.text "source"
     t.datetime "created_at", null: false
