@@ -30,6 +30,22 @@ describe Stenographer::Change, type: :model do
         change.save
       end
     end
+
+    describe 'after_update' do
+      it 'calls send_to_outputs if the environment changes' do
+        change = create(:change)
+        expect(change).to receive(:send_to_outputs)
+
+        change.update(environments: 'tea')
+      end
+
+      it 'does not call send_to_outputs if the other fields change' do
+        change = create(:change)
+        expect(change).not_to receive(:send_to_outputs)
+
+        change.update(change_type: 'new')
+      end
+    end
   end
 
   describe 'Methods' do

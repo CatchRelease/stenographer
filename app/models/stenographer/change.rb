@@ -6,6 +6,7 @@ module Stenographer
 
     before_save :sanitize_environment
     after_commit :send_to_outputs, on: [:create]
+    after_update :send_to_outputs, if: proc { |change| change.saved_change_to_environments? }
 
     validates :message, presence: true
     validates :change_type, inclusion: { in: VALID_CHANGE_TYPES }, allow_nil: true
