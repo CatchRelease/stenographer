@@ -60,8 +60,6 @@ module Stenographer
     def self.create_or_update_by_source_id(change_params)
       source_id = change_params[:source_id]
 
-      Rails.logger.info "source_id: #{source_id}"
-
       if source_id.present? && (change = Change.find_by(source_id: source_id)).present?
         change.environments += ", #{change_params[:environments]}"
         change.save
