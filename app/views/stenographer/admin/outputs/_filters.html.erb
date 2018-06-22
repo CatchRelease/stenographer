@@ -1,6 +1,6 @@
 <% filters = @output.filters_hash %>
 <% change_type_selected = filters[:change_type] %>
-<% environment_selected = filters[:environment] %>
+<% environment_selected = filters[:environments] %>
 
 <br />
 <h2 class="subtitle">Filters</h2>
@@ -15,10 +15,8 @@
 </div>
 
 <div class="field">
-  <%= label_tag :environments, 'Environment (optional)', class: 'label' %>
+  <%= label_tag :environments, 'Environments (optional, csv)', class: 'label' %>
   <div class="control">
-    <div class="select">
-      <%= select('filters', 'environments', Stenographer::Change.environments, { selected: environment_selected, include_blank: true }) %>
-    </div>
+    <%= text_field_tag 'filters[environments]', environment_selected, class: 'input' %>
   </div>
 </div>
