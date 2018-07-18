@@ -23,7 +23,7 @@ Open a browser to http://host:port/stenographer or whatever you've set your moun
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'stenographer'
+gem 'stenographer-rails'
 ```
 
 And then execute:
@@ -33,7 +33,7 @@ $ bundle
 
 Or install it yourself as:
 ```bash
-$ gem install stenographer
+$ gem install stenographer-rails
 ```
 
 Add the configuration and migrations:
