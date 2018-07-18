@@ -15,3 +15,5 @@ spec/dummy/node_modules/
 spec/dummy/yarn-error.log
 spec/dummy/storage/
 spec/dummy/tmp/
+
+stenographer-rails-*.gem

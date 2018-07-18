@@ -3,6 +3,6 @@
 FactoryBot.define do
   factory :output, class: Stenographer::Output do
     authentication
-    configuration Faker::Types.complex_hash.to_json
+    configuration Faker::Types.complex_rb_hash.to_json
   end
 end
