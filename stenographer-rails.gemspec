@@ -17,7 +17,6 @@ Gem::Specification.new do |s|
   s.files = Dir['{app,config,db,lib}/**/*', 'MIT-LICENSE', 'Rakefile', 'README.md']
   s.test_files = Dir['spec/**/*']
 
-  s.add_dependency 'bulma-rails', '~> 0.7'
   s.add_dependency 'citrus', '~> 3.0'
   s.add_dependency 'groupdate', '~> 4.0'
   s.add_dependency 'http', '~> 3.3'
