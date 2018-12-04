@@ -8,6 +8,7 @@ module Stenographer
       @change_count = Change.count
       @authentication_count = Authentication.count
       @output_count = Output.count
+      @link_count = Link.count
     end
   end
 end

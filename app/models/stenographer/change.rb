@@ -18,8 +18,6 @@ module Stenographer
         end
         environments_array.uniq!
         environments_array.join(', ')
-      else
-        nil
       end
     end
 

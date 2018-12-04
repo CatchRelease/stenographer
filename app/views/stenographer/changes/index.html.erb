@@ -1,6 +1,18 @@
 <section class="section">
   <div class="container">
-    <h1 class="title"><%= Stenographer.app_name %></h1>
+    <nav class="panel">
+      <p class="panel-heading"><%= Stenographer.link_section_name %></p>
+
+      <div class="columns is-gapless is-multiline is-mobile">
+        <% Stenographer::Link.all.each do |link| %>
+          <div class="column is-one-third">
+            <span class="panel-block">
+              <%= link_to(link.description, link.url) %>
+            </span>
+          </div>
+        <% end %>
+      </div>
+    </nav>
 
     <% if @change_count.positive? %>
       <% date_groups = @changes.group_by_week { |change| change.created_at } %>

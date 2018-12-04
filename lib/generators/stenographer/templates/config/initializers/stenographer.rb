@@ -53,6 +53,12 @@ Stenographer.configure do |config|
   # config.parser = 'Stenographer::Inputs::GithubInput'
   config.parser = 'Stenographer::Inputs::GithubInput'
 
+  # Display name for the links section on the index
+  #
+  # Example:
+  # config.link_section_name = 'Useful Links'
+  config.link_section_name = 'Useful Links'
+
   # ====================================================================================================================
   #
   # GitHub Parser Configuration

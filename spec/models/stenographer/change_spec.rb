@@ -196,21 +196,8 @@ describe Stenographer::Change, type: :model do
           let!(:existing_change) { create(:change, source_id: '#aol', environments: 'england') }
 
           it 'does not create a new change' do
-            expect {
+            expect do
               Stenographer::Change.create_or_update_by_source_id({
-                                                                     subject: 'test',
-                                                                     message: 'test1',
-                                                                     source_id: '#aol',
-                                                                     visible: true,
-                                                                     environments: 'france',
-                                                                     tracker_ids: '1234',
-                                                                     source: {}.to_json
-                                                                 })
-            }.not_to change(Stenographer::Change, :count)
-          end
-
-          it 'adds to the changes environment' do
-            Stenographer::Change.create_or_update_by_source_id({
                                                                    subject: 'test',
                                                                    message: 'test1',
                                                                    source_id: '#aol',
@@ -218,6 +205,19 @@ describe Stenographer::Change, type: :model do
                                                                    environments: 'france',
                                                                    tracker_ids: '1234',
                                                                    source: {}.to_json
+                                                                 })
+            end.not_to change(Stenographer::Change, :count)
+          end
+
+          it 'adds to the changes environment' do
+            Stenographer::Change.create_or_update_by_source_id({
+                                                                 subject: 'test',
+                                                                 message: 'test1',
+                                                                 source_id: '#aol',
+                                                                 visible: true,
+                                                                 environments: 'france',
+                                                                 tracker_ids: '1234',
+                                                                 source: {}.to_json
                                                                })
 
             expect(existing_change.reload.environments).to eq('england, france')
@@ -226,24 +226,24 @@ describe Stenographer::Change, type: :model do
 
         describe 'source id not found' do
           it 'creates a new change' do
-            expect {
+            expect do
               Stenographer::Change.create_or_update_by_source_id({
-                                                                     subject: 'test',
-                                                                     message: 'test1',
-                                                                     source_id: '#14983989',
-                                                                     visible: true,
-                                                                     environments: 'test',
-                                                                     tracker_ids: '1234',
-                                                                     source: {}.to_json
+                                                                   subject: 'test',
+                                                                   message: 'test1',
+                                                                   source_id: '#14983989',
+                                                                   visible: true,
+                                                                   environments: 'test',
+                                                                   tracker_ids: '1234',
+                                                                   source: {}.to_json
                                                                  })
-            }.to change(Stenographer::Change, :count).by(1)
+            end.to change(Stenographer::Change, :count).by(1)
           end
         end
       end
 
       describe 'no source id' do
         it 'creates a new change' do
-          expect {
+          expect do
             Stenographer::Change.create_or_update_by_source_id({
                                                                  subject: 'test',
                                                                  message: 'test1',
@@ -252,7 +252,7 @@ describe Stenographer::Change, type: :model do
                                                                  tracker_ids: '1234',
                                                                  source: {}.to_json
                                                                })
-          }.to change(Stenographer::Change, :count).by(1)
+          end.to change(Stenographer::Change, :count).by(1)
         end
       end
     end

@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 Stenographer::Engine.routes.draw do
+  resources :links
   resources :changes, only: %i[index show], constraints: Stenographer::RoutingConstraints::ViewerOnly.new
   resources :changes, only: %i[create] # Created separately because we don't want it behind the routing constraints
 
@@ -12,6 +13,7 @@ Stenographer::Engine.routes.draw do
     resources :authentications, only: %i[index show destroy], constraints: Stenographer::RoutingConstraints::ManagerOnly.new
     resources :changes, constraints: Stenographer::RoutingConstraints::ManagerOnly.new
     resources :outputs, constraints: Stenographer::RoutingConstraints::ManagerOnly.new
+    resources :links, constraints: Stenographer::RoutingConstraints::ManagerOnly.new
   end
 
   get '/auth/:provider', to: 'authentications#create', as: :authentication # Used so we can access authentication_path('provider')

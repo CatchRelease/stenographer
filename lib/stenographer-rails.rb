@@ -31,6 +31,7 @@ module Stenographer
     mattr_accessor :parser
     mattr_accessor :tracked_branches
     mattr_accessor :branch_mapping
+    mattr_accessor :link_section_name
 
     self.app_name = 'Stenographer'
     self.app_icon = nil
@@ -49,6 +50,7 @@ module Stenographer
     self.parser = 'Stenographer::Inputs::GithubInput'
     self.tracked_branches = %w[master work]
     self.branch_mapping = { master: 'production', work: 'staging' }
+    self.link_section_name = 'Useful Links'
   end
 
   def self.configure(&block)

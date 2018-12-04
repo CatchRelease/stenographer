@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_05_02_170621) do
+ActiveRecord::Schema.define(version: 2018_12_04_190243) do
 
   create_table "stenographer_authentications", force: :cascade do |t|
     t.string "provider", null: false
@@ -30,6 +30,13 @@ ActiveRecord::Schema.define(version: 2018_05_02_170621) do
     t.string "environments"
     t.string "tracker_ids"
     t.text "source"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "stenographer_links", force: :cascade do |t|
+    t.string "url"
+    t.string "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

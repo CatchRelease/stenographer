@@ -10,6 +10,7 @@ describe Stenographer::AdminController, type: :controller do
 
     describe 'individual behaviors' do
       let!(:change) { create(:change) }
+      let!(:link) { create(:link) }
       let!(:authentication) { create(:authentication) }
 
       before :each do
@@ -22,6 +23,10 @@ describe Stenographer::AdminController, type: :controller do
 
       it 'assigns @authentication_count' do
         expect(assigns(:authentication_count)).to eq(Stenographer::Authentication.count)
+      end
+
+      it 'assigns @link_count' do
+        expect(assigns(:link_count)).to eq(Stenographer::Link.count)
       end
 
       it 'renders the index page' do
