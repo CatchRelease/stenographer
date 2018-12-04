@@ -20,9 +20,10 @@
       <% date_groups.sort { |group1, group2| group2[0] <=> group1[0] }.each do |date_group| %>
         <article>
           <% date_group_date = date_group[0] %>
+          <% readable_group_date = date_group_date.strftime('%B %e, %Y') %>
           <% date_group_results = date_group[1] %>
 
-          <p class="title is-4 has-text-centered">Week of <%= date_group_date %></p>
+          <p class="title is-4 has-text-centered">Week of <%= readable_group_date %></p>
           <div>
             <% change_type_groups = date_group_results.group_by(&:change_type) %>
 
