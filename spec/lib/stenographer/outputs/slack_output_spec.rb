@@ -3,7 +3,7 @@
 describe Stenographer::Outputs::SlackOutput do
   let!(:output) { create(:output) }
   let!(:change) { create(:change) }
-  let(:slack) { Stenographer::Outputs::SlackOutput.new(change: change, output: output) }
+  let(:slack) { described_class.new(change: change, output: output) }
 
   # before :each do
   #   allow(HTTP).to receive(:post)
@@ -17,7 +17,7 @@ describe Stenographer::Outputs::SlackOutput do
   describe '#channels' do
     let(:channels_response) { File.read("#{Stenographer::Engine.root}/spec/fixtures/slack_channels_list.json") }
 
-    before :each do
+    before do
       response = SlackResponse.new
       response.body = channels_response
       allow(HTTP).to receive(:get).and_return(response)
@@ -36,7 +36,7 @@ describe Stenographer::Outputs::SlackOutput do
   describe '#send' do
     let(:chat_post_message_response) { File.read("#{Stenographer::Engine.root}/spec/fixtures/slack_chat_post_message.json") }
 
-    before :each do
+    before do
       response = SlackResponse.new
       response.body = chat_post_message_response
       allow(HTTP).to receive_message_chain(:auth, :headers, :post).and_return(response)

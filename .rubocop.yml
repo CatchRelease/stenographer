@@ -2,6 +2,8 @@
 # To run 'rubocop' with this config file, run:
 # `rubocop -c rubocop.yml`
 
+require: rubocop-rspec
+
 # TODO: Temporarily disable this cop, because it spews false positives.
 # https://github.com/bbatsov/rubocop/issues/4886
 Style/CommentedKeyword:
@@ -118,6 +120,9 @@ Metrics/BlockLength:
 Naming/MemoizedInstanceVariableName:
   Enabled: false
 
+Naming/FileName:
+  Enabled: false
+
 Rails/SkipsModelValidations:
   Enabled: false
 
@@ -147,6 +152,21 @@ Performance/RegexpMatch:
   Enabled: false
 
 Lint/AmbiguousBlockAssociation:
+  Enabled: false
+
+RSpec/NestedGroups:
+  Enabled: false
+
+RSpec/ExampleLength:
+  Enabled: false
+
+RSpec/MultipleExpectations:
+  Enabled: false
+
+RSpec/MessageChain:
+  Enabled: false
+
+RSpec/MessageSpies:
   Enabled: false
 
 AllCops:

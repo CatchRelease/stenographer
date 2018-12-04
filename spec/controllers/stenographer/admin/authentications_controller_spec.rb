@@ -12,7 +12,7 @@ describe Stenographer::Admin::AuthenticationsController, type: :controller do
     end
 
     describe 'individual behaviors' do
-      before :each do
+      before do
         index_action
       end
 
@@ -44,7 +44,7 @@ describe Stenographer::Admin::AuthenticationsController, type: :controller do
     end
 
     describe 'individual behaviors' do
-      before :each do
+      before do
         show_action
       end
 

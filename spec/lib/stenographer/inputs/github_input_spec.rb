@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 describe Stenographer::Inputs::GithubInput do
-  let(:parser) { Stenographer::Inputs::GithubInput.new }
+  let(:parser) { described_class.new }
 
   describe '#parse' do
     let(:example_response) { File.read("#{Stenographer::Engine.root}/spec/fixtures/github_push_notification.json") }
@@ -32,7 +32,7 @@ describe Stenographer::Inputs::GithubInput do
         let(:commits) { commit_data[:commits] }
 
         describe 'use_changelog true' do
-          before :each do
+          before do
             Stenographer.use_changelog = true
           end
 
@@ -51,7 +51,7 @@ describe Stenographer::Inputs::GithubInput do
         end
 
         describe 'use_changelog false' do
-          before :each do
+          before do
             Stenographer.use_changelog = false
           end
 

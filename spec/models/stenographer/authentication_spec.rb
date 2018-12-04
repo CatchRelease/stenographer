@@ -33,7 +33,7 @@ describe Stenographer::Authentication, type: :model do
       let!(:authentication) { create(:authentication) }
 
       describe 'nil' do
-        before :each do
+        before do
           authentication.update(credentials: nil)
         end
 
@@ -43,7 +43,7 @@ describe Stenographer::Authentication, type: :model do
       end
 
       describe 'has data' do
-        before :each do
+        before do
           authentication.update(credentials: { country: 'Ibiza' }.to_json)
         end
 

@@ -70,10 +70,10 @@ describe Stenographer::Change, type: :model do
     end
 
     describe '#to_markdown' do
-      subject { create(:change, message: '# hello') }
-
       it 'translates its message to markdown' do
-        expect(subject.to_markdown.strip).to eq('<h1>hello</h1>')
+        change = create(:change, message: '# hello')
+
+        expect(change.to_markdown.strip).to eq('<h1>hello</h1>')
       end
     end
 
@@ -95,7 +95,7 @@ describe Stenographer::Change, type: :model do
 
       describe 'has match' do
         describe 'normal field' do
-          before :each do
+          before do
             change.update(change_type: 'new')
             output.update(filters: { change_type: 'new' }.to_json)
           end
@@ -107,7 +107,7 @@ describe Stenographer::Change, type: :model do
 
         describe 'environments' do
           describe 'matches last' do
-            before :each do
+            before do
               change.update(environments: 'florida, california')
               output.update(filters: { environments: 'california' }.to_json)
             end
@@ -118,7 +118,7 @@ describe Stenographer::Change, type: :model do
           end
 
           describe 'does not match if not last' do
-            before :each do
+            before do
               change.update(environments: 'california, florida')
               output.update(filters: { environments: 'california' }.to_json)
             end
@@ -131,7 +131,7 @@ describe Stenographer::Change, type: :model do
       end
 
       describe 'has empty match' do
-        before :each do
+        before do
           change.update(environments: 'staging')
           output.update(filters: { environments: '' }.to_json)
         end
@@ -142,7 +142,7 @@ describe Stenographer::Change, type: :model do
       end
 
       describe 'no match' do
-        before :each do
+        before do
           change.update(environments: 'community')
           output.update(filters: { environments: 'the office' }.to_json)
         end

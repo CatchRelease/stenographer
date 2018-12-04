@@ -9,11 +9,11 @@ describe Stenographer::AdminController, type: :controller do
     end
 
     describe 'individual behaviors' do
-      let!(:change) { create(:change) }
-      let!(:link) { create(:link) }
-      let!(:authentication) { create(:authentication) }
+      let(:change) { create(:change) }
+      let(:link) { create(:link) }
+      let(:authentication) { create(:authentication) }
 
-      before :each do
+      before do
         index_action
       end
 

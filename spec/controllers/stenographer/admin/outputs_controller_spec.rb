@@ -13,7 +13,7 @@ describe Stenographer::Admin::OutputsController, type: :controller do
     end
 
     describe 'individual behaviors' do
-      before :each do
+      before do
         index_action
       end
 
@@ -49,7 +49,7 @@ describe Stenographer::Admin::OutputsController, type: :controller do
     end
 
     describe 'individual behaviors' do
-      before :each do
+      before do
         show_action
       end
 
@@ -69,7 +69,7 @@ describe Stenographer::Admin::OutputsController, type: :controller do
     end
 
     describe 'individual behaviors' do
-      before :each do
+      before do
         new_action
       end
 
@@ -146,7 +146,7 @@ describe Stenographer::Admin::OutputsController, type: :controller do
     end
 
     describe 'individual behaviors' do
-      before :each do
+      before do
         edit_action
       end
 
@@ -172,7 +172,7 @@ describe Stenographer::Admin::OutputsController, type: :controller do
     end
 
     describe 'individual behaviors' do
-      before :each do
+      before do
         update_action
       end
 

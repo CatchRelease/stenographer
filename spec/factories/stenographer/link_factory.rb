@@ -2,7 +2,7 @@
 
 FactoryBot.define do
   factory :link, class: Stenographer::Link do
-    url Faker::Internet.url
-    description Faker::Community.quotes
+    url { Faker::Internet.url }
+    description { Faker::Community.quotes }
   end
 end

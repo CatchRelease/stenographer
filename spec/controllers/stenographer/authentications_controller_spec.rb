@@ -3,6 +3,13 @@
 describe Stenographer::AuthenticationsController, type: :controller do
   routes { Stenographer::Engine.routes }
 
+  describe 'has a test' do
+    it 'passes' do
+      truthy_value = true
+      expect(truthy_value).to be_truthy
+    end
+  end
+
   # Unclear why this doesn't match the route
   # describe '#create' do
   #   let(:auth_hash) { Faker::Omniauth.google }

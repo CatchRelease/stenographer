@@ -23,7 +23,7 @@ describe Stenographer::ChangesController, type: :controller do
       end
 
       describe 'use_changelog false' do
-        before :each do
+        before do
           Stenographer.use_changelog = false
         end
 
@@ -45,7 +45,7 @@ describe Stenographer::ChangesController, type: :controller do
 
     describe 'individual behaviors' do
       describe 'changes' do
-        before :each do
+        before do
           index_action
         end
 
@@ -64,7 +64,7 @@ describe Stenographer::ChangesController, type: :controller do
       end
 
       describe 'order' do
-        before :each do
+        before do
           index_action
         end
 
@@ -87,7 +87,7 @@ describe Stenographer::ChangesController, type: :controller do
     end
 
     describe 'individual behaviors' do
-      before :each do
+      before do
         show_action
       end
 

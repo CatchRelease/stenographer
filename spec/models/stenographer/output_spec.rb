@@ -23,7 +23,7 @@ describe Stenographer::Output, type: :model do
 
     describe '#configuration_hash' do
       describe 'nil' do
-        before :each do
+        before do
           output.update(configuration: nil)
         end
 
@@ -33,7 +33,7 @@ describe Stenographer::Output, type: :model do
       end
 
       describe 'has data' do
-        before :each do
+        before do
           output.update(configuration: { country: 'Ibiza' }.to_json)
         end
 
@@ -45,7 +45,7 @@ describe Stenographer::Output, type: :model do
 
     describe '#filters_hash' do
       describe 'nil' do
-        before :each do
+        before do
           output.update(filters: nil)
         end
 
@@ -55,7 +55,7 @@ describe Stenographer::Output, type: :model do
       end
 
       describe 'has data' do
-        before :each do
+        before do
           output.update(filters: { country: 'Ibiza' }.to_json)
         end
 
