@@ -19,7 +19,7 @@ Gem::Specification.new do |s|
 
   s.add_dependency 'citrus', '~> 3.0'
   s.add_dependency 'groupdate', '~> 4.0'
-  s.add_dependency 'http', '~> 4.0'
+  s.add_dependency 'http', '~> 3.3'
   s.add_dependency 'omniauth', '~> 1.8'
   s.add_dependency 'omniauth-slack', '~> 2.3'
   s.add_dependency 'rails', '~> 5.2'
