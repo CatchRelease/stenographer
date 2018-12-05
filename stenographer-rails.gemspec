@@ -29,13 +29,13 @@ Gem::Specification.new do |s|
   s.add_dependency 'will_paginate', '~> 3.1'
   s.add_dependency 'will_paginate-bulma', '~> 1.0'
 
-  s.add_development_dependency 'factory_bot_rails', '~> 4.11.1'
+  s.add_development_dependency 'factory_bot_rails', '~> 4.11', '>= 4.11.1'
   s.add_development_dependency 'faker', '~> 1.9'
-  s.add_development_dependency 'fuubar', '~> 2.3.2'
-  s.add_development_dependency 'rails-controller-testing', '~> 1.0.3'
-  s.add_development_dependency 'rspec-rails', '~> 3.8.1'
+  s.add_development_dependency 'fuubar', '~> 2.3', '>= 2.3.2'
+  s.add_development_dependency 'rails-controller-testing', '~> 1.0', '>= 1.0.3'
+  s.add_development_dependency 'rspec-rails', '~> 3.8', '>= 3.8.1'
   s.add_development_dependency 'rubocop', '~> 0.60'
-  s.add_development_dependency 'rubocop-rspec', '~> 1.30.1'
+  s.add_development_dependency 'rubocop-rspec', '~> 1.30', '>= 1.30.1'
   s.add_development_dependency 'shoulda', '~> 3.6'
   s.add_development_dependency 'sqlite3', '~> 1.3'
 end
