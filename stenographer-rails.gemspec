@@ -24,8 +24,8 @@ Gem::Specification.new do |s|
   s.add_dependency 'omniauth-slack', '~> 2.3'
   s.add_dependency 'rails', '~> 5.2'
   s.add_dependency 'redcarpet', '~> 3.4'
-  s.add_dependency 'sass', '~> 3.4'
-  s.add_dependency 'sass-rails', '~> 5.0'
+  s.add_dependency 'sassc', '~> 2.0'
+  s.add_dependency 'sassc-rails', '~> 2.1'
   s.add_dependency 'will_paginate', '~> 3.1'
   s.add_dependency 'will_paginate-bulma', '~> 1.0'
 

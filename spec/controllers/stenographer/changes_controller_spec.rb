@@ -3,8 +3,8 @@
 describe Stenographer::ChangesController, type: :controller do
   routes { Stenographer::Engine.routes }
 
-  let!(:first_change) { create(:change, created_at: 2.weeks.ago, environments: 'env1') }
-  let!(:newer_change) { create(:change, created_at: 1.week.ago, environments: 'env2') }
+  let!(:first_change) { create(:change, created_at: 2.weeks.ago, environments: 'env1', visible: true) }
+  let!(:newer_change) { create(:change, created_at: 1.week.ago, environments: 'env2', visible: true) }
   let!(:hidden_change) { create(:change, visible: false) }
 
   describe '#create' do
@@ -68,7 +68,7 @@ describe Stenographer::ChangesController, type: :controller do
           index_action
         end
 
-        it 'created at desc' do
+        it 'orders by created_at, descending' do
           expect(assigns(:changes)).to match_array([newer_change, first_change])
         end
       end

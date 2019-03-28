@@ -8,7 +8,7 @@ require 'citrus'
 require 'http'
 require 'omniauth'
 require 'omniauth-slack'
-require 'sass-rails'
+require 'sassc-rails'
 
 require 'stenographer/engine'
 require 'stenographer/inputs/base_input'
