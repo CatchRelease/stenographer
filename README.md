@@ -5,7 +5,7 @@ has a unique id shared across branches, it will also manage grouping changes by 
 ## Usage
 To create a new item:
 ```ruby
-Stenography::Change.create(message: 'My Change', change_type: 'new/improved/fixed', visible: true, environments: 'production', tracker_ids: '#12345', source: '{}')
+Stenographer::Change.create(message: 'My Change', change_type: 'new/improved/fixed', visible: true, environments: 'production', tracker_ids: '#12345', source: '{}')
 ```
 It's advised to store the source so you can parse it again later if needed.
 
