@@ -70,10 +70,14 @@ describe Stenographer::Change, type: :model do
     end
 
     describe '#to_markdown' do
-      it 'translates its message to markdown' do
-        change = create(:change, message: '# hello')
+      let(:change) { create(:change, message: '# hello nice friends') }
 
-        expect(change.to_markdown.strip).to eq('<h1>hello</h1>')
+      it 'translates its message to markdown' do
+        expect(change.to_markdown.strip).to eq('<h1>hello nice friends</h1>')
+      end
+
+      it 'truncates the message before conversion if a truncate length is given' do
+        expect(change.to_markdown(truncate: 10).strip).to eq('<h1>hello...</h1>')
       end
     end
 
