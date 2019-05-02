@@ -21,8 +21,9 @@ module Stenographer
       end
     end
 
-    def to_markdown
-      Stenographer.markdown_renderer.render(message).html_safe
+    def to_markdown(truncate: nil)
+      msg = truncate ? message.truncate(truncate) : message
+      Stenographer.markdown_renderer.render(msg).html_safe
     end
 
     def matches_filters(output = nil)

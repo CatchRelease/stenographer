@@ -25,7 +25,7 @@
         <tr>
           <td><%= link_to(change.id, admin_change_path(change.id)) %></td>
           <td><%= change.created_at.strftime('%Y/%m/%d') %></td>
-          <td title="<%= change.message %>"><%= change.message.truncate(80) %></td>
+          <td title="<%= change.message %>"><%= change.to_markdown(truncate: 80) %></td>
           <td><%= change.visible.to_s %></td>
           <td><%= change.change_type.present? ? change.change_type.titleize : 'General'%></td>
           <td>
