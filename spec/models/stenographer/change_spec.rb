@@ -79,6 +79,11 @@ describe Stenographer::Change, type: :model do
       it 'truncates the message before conversion if a truncate length is given' do
         expect(change.to_markdown(truncate: 10).strip).to eq('<h1>hello...</h1>')
       end
+
+      it 'does not break if truncation creates incomplete markdown' do
+        change.update!(message: '[a link](https://google.com)')
+        expect(change.to_markdown(truncate: 10)).to eq "<p>[a link...</p>\n"
+      end
     end
 
     describe '#matches_filters' do
