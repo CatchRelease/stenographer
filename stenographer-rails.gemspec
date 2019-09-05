@@ -22,7 +22,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'http', '~> 3.3'
   s.add_dependency 'omniauth', '~> 1.8'
   s.add_dependency 'omniauth-slack', '~> 2.3'
-  s.add_dependency 'rails', '~> 5.2'
+  s.add_dependency 'rails', '>= 5.2'
   s.add_dependency 'redcarpet', '~> 3.4'
   s.add_dependency 'sassc', '~> 2.0'
   s.add_dependency 'sassc-rails', '~> 2.1'
